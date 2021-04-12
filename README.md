@@ -1,7 +1,7 @@
 # TDDD27 2021 Project
 
 ## Functional specification
-An application for bookings of training sessions, more specifically Crossfit. 
+An application for bookings of training sessions, more specifically CrossFit. 
 
 Some features are:
 - Login
@@ -24,7 +24,7 @@ The plan is to have an admin page where the admin can add and remove sessions, a
 ***
 
 ## Technological specification
-The MEVN stack is used in this project.
+The MEVN stack is used in this project. The frontend is developed in JavaScript and the backend is developed in TypeScript.
 
 ### Frontend / Client framework
 - Vue.js
