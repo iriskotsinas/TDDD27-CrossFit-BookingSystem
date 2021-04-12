@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Header/>
     <div class="poster">
       <div class="center-text">
         WE ARE POWER
@@ -23,19 +22,17 @@
 </template>
 
 <script>
-import Header from "../components/Header";
 export default {
   name: "Home",
-  components: {
-    Header
-  }
 }
 </script>
 
 <style lang= "scss" scoped>
 .container{
   height: 200vh;
+  margin: 0;
 }
+
 .box{
   width: 80vw;
   height: 50vh;
@@ -55,11 +52,12 @@ export default {
   height: 80%;
 
 }
-.content-container{
+.content-container {
   display: inline-flex;
   justify-content: space-evenly;
 }
-.image{
+
+.image {
   display: flex;
   float: right;
   width: 30vw;
