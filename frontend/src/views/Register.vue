@@ -1,38 +1,36 @@
 <template>
-  <div class="login">
+  <div class="register">
     <div class="content-container">
       <form method="post">
         <div class="container">
-          <label for="uname"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="uname" required>
-          
+          <label for="firstname"><b>First Name</b></label>
+          <input type="text" placeholder="Enter First Name" name="firstname" required>
+          <label for="lastname"><b>Last Name</b></label>
+          <input type="text" placeholder="Enter Last Name" name="lastname" required>
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" required>
           <label for="psw"><b>Password</b></label>
           <input type="password" placeholder="Enter Password" name="psw" required>
           <button type="submit">Login</button>
           <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
       </form>
-      <div class="register">
-          <router-link class="register-btn" to="/register">
-            <button>
-              Register
-            </button>
-          </router-link>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
 }
 </script>
 
 <style lang="scss" scoped>
-.login {
-  display: grid;
-  grid-template-columns: auto;
+
+.register {
+  display: flex;
+  justify-content: center;
 }
 
 .content-container {
