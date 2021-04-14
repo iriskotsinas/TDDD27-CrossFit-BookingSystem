@@ -1,17 +1,17 @@
-import mongoose from 'mongoose'
-
+import mongoose from 'mongoose';
 
 const dataSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
-    type: String, 
-    required: true
-  }
-})
+    type: String,
+    required: true,
+  },
+});
 
-const Data = mongoose.model("Booking", dataSchema)
+const Data = mongoose.model('Booking', dataSchema);
 
-export { Data }
+// eslint-disable-next-line import/prefer-default-export
+export { Data };

@@ -1,6 +1,7 @@
-import express, {Request, Response} from 'express'
+import express, { Request, Response } from 'express';
 // import mongodb from 'mongodb'
-import { Data } from '../../models/data'
+import { Data } from '../../models/data';
+
 const router = express.Router();
 
 router.get('/booking', async (req: Request, res: Response) => {
@@ -14,6 +15,5 @@ router.post('/booking', async (req: Request, res: Response) => {
   await data.save();
   return res.status(201).send(data);
 });
-
 
 export default router;
