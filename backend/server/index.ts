@@ -1,13 +1,17 @@
 import express from 'express';
 import cors from 'cors';
 import booking from './routes/api/booking'
+import register from './routes/api/register'
+import login from './routes/api/login'
 import mongoose, { mongo, Mongoose } from 'mongoose'
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use('/api/booking', booking)
+app.use('/api', booking)
+app.use('/api', register)
+app.use('/api', login)
 
 const port = process.env.PORT || 5000;
 

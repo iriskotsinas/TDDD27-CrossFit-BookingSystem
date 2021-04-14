@@ -1,28 +1,67 @@
 <template>
   <div class="register">
     <div class="content-container">
-      <form method="post">
+      <form @submit.prevent="onRegister" >
         <div class="container">
           <label for="firstname"><b>First Name</b></label>
-          <input type="text" placeholder="Enter First Name" name="firstname" required>
+          <input v-model="form.firstname" type="text" placeholder="Enter First Name" name="firstname" required>
           <label for="lastname"><b>Last Name</b></label>
-          <input type="text" placeholder="Enter Last Name" name="lastname" required>
+          <input v-model="form.lastname" type="text" placeholder="Enter Last Name" name="lastname" required>
 
           <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-          <button type="submit">Login</button>
+          <input v-model="form.email" type="text" placeholder="Enter Email" name="email" required>
+          <label for="password"><b>Password</b></label>
+          <input v-model="form.password" type="password" placeholder="Enter Password" name="password" required>
+          <input v-model="form.passwordRepeat" type="password" placeholder="Enter Password Again" name="passwordRepeat" required>
+          <button type="submit">Register</button>
+          <h1>{{error_message}}</h1>
           <span class="psw">Forgot <a href="#">password?</a></span>
+          <div class="account">Already have an account? <router-link to="/login"><button>Log in</button></router-link></div>
         </div>
       </form>
+
+      
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "Register",
+  data(){
+    return {
+      form:{
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        passwordRepeat: ''
+      },
+      error_message: ''
+    }
+  },
+  methods:{
+    ...mapActions(['register']),
+    onRegister: async function(){
+      if(this.form.password === this.form.passwordRepeat){
+        await this.register(this.form);
+        let status = this.getStatus;
+        console.log(status);
+        if(status.success){
+          this.$store.state.loggedIn = true;
+        }
+      }
+      else{
+        this.error_message = 'Passwords do not match';
+      }
+
+    }
+  },
+  computed: {
+    ...mapGetters(['getStatus'])
+  }
+
 }
 </script>
 

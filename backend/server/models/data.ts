@@ -12,6 +12,6 @@ const dataSchema = new mongoose.Schema({
   }
 })
 
-const Data = mongoose.model("User", dataSchema)
+const Data = mongoose.model("Booking", dataSchema)
 
 export { Data }

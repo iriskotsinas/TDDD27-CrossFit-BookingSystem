@@ -3,11 +3,11 @@ import express, {Request, Response} from 'express'
 import { Data } from '../../models/data'
 const router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/booking', async (req: Request, res: Response) => {
   const data = await Data.find({});
   return res.status(200).send(data);
 });
-router.post('/', async (req: Request, res: Response) => {
+router.post('/booking', async (req: Request, res: Response) => {
   const { title, description } = req.body;
 
   const data = new Data({ title, description });

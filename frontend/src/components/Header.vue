@@ -23,7 +23,7 @@
 export default {
 data() {
   return {
-    dropdown: true
+    dropdown: false
   }
 }
 }
@@ -35,7 +35,7 @@ data() {
   cursor: default;
 }
 .dropdown-container{
-  width: 40vw;
+  width: 20em;
   height: auto;
   position: absolute;
   background: pink;
