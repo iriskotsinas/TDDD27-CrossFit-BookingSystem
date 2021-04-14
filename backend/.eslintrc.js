@@ -27,6 +27,9 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'linebreak-style': 0,
+    'no-underscore-dangle': 0,
+    'eslint-disable-next-line': 0,
   },
   settings: {
     'import/resolver': {

@@ -1,13 +1,14 @@
 <template>
   <div class="login">
     <div class="content-container">
-      <form method="post">
+      <form @submit.prevent="onLogin">
         <div class="container">
-          <label for="uname"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="uname" required>
+          <label for="email"><b>Email</b></label>
+          <input v-model="form.email" type="text" placeholder="Enter Email" name="email" required>
           
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+          <label for="password"><b>Password</b></label>
+          <input v-model="form.password" type="password" placeholder="Enter Password" name="password" required>
+          <div id="error">{{error_message}}</div>
           <button type="submit">Login</button>
           <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
@@ -24,12 +25,41 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "Login",
+  data(){
+    return {
+      form:{
+        email: '',
+        password: ''
+      },
+      error_message: ''
+    }
+  },
+  methods:{
+    ...mapActions(['login']),
+    onLogin: async function(){
+        await this.login(this.form);
+        let status = this.getStatus;
+        if(status.success){
+          this.$router.replace('/');
+        }
+        else{
+          this.error_message = this.getStatus.error;
+        }
+    }
+  },
+  computed: {
+    ...mapGetters(['getStatus'])
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+#error{
+  color: red;
+}
 .login {
   display: grid;
   grid-template-columns: auto;

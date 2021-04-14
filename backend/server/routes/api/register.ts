@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { User } from '../../models/user';
 import { registerValidation } from '../../validation';
 
@@ -7,10 +8,10 @@ const router = express.Router();
 
 router.post('/register', async (req: Request, res: Response) => {
   const { error } = registerValidation(req.body);
-  if (error) return res.send(error.details[0].message);
+  if (error) return res.json({ status: false, error: error.details[0].message });
 
   const emailExists = await User.findOne({ email: req.body.email });
-  if (emailExists) return res.status(400).send('Account with that email already exists');
+  if (emailExists) return res.json({ status: false, error: 'Account with that email already exists' });
 
   // encryption
   const salt = await bcrypt.genSalt();
@@ -24,10 +25,19 @@ router.post('/register', async (req: Request, res: Response) => {
   });
 
   try {
-    const savedUser = await user.save();
-    return res.send(savedUser);
+    await user.save();
+    let token: string = '';
+    if (process.env.TOKEN_SECRET) {
+      token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+    } else {
+      res.status(400).send('SECRET not found');
+    }
+    return res.json({
+      status: true,
+      token,
+      user,
+    });
   } catch (err) {
-    console.log('hello');
     return res.status(400).send(err);
   }
 });

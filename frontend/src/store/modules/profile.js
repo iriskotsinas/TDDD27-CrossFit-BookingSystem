@@ -15,31 +15,29 @@ const getters = {
 const actions = {
   async login({ commit }, form) {
     const response = await axios.post('http://localhost:5000/api/login', form)
-    if (response.data.success) {
-      commit('updateUser', response.data)
-      localStorage.token = response.data.token
-    } else {
-      commit('setStatus', response.data)
+    if (response.data.token) {
+      const token = response.data.token;
+      if(token){
+        localStorage.setItem("jwt", token);
+        commit('updateUser', response.data)
+      }
     }
+    commit('setStatus', response.data);
   },
   async register({ commit }, form) {
     const response = await axios.post('http://localhost:5000/api/register', form)
-    commit('setStatus', response.data)
-  },
-  async getUserByToken({ commit }) {
-    const response = await axios.get('http://localhost:5000/api/users', {
-      headers: { Authorization: `Bearer ${localStorage.token}` }
-    })
-    if (response.data.success) {
-      commit('updateUser', response.data)
+    const token = response.data.token;
+    if(token){
+      localStorage.setItem("jwt", token);
     }
-  },
+    commit('setStatus', response.data);
+
+  }
 }
 const mutations = {
   setStatus: (state, response) =>
-    (state.status = { success: response.success, message: response.message }),
+    (state.status = { success: response.status, error: response.error}),
   updateUser: (state, response) => {
-    state.status = { success: response.success, message: response.message }
     state.user = response.user
     state.loggedIn = true
   }
