@@ -9,7 +9,7 @@ const state = {
 const getters = {
   isLoggedIn: state => state.loggedIn,
   getStatus: state => state.status,
-  getFullName: state => state.user.firstname + ' ' + state.user.lastname
+  getUserDetails: state => state.user
 };
 
 const actions = {
@@ -36,6 +36,7 @@ const actions = {
         localStorage.setItem("jwt", token);
       }
       commit('setStatus', response.data);
+      commit('updateUser', response.data);
     } catch (error) {
       console.log("ERROR");
     }

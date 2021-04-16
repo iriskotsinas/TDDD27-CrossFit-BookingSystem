@@ -31,13 +31,30 @@
         >
           Contact
         </router-link>
-        <a @mouseover="dropdown=true">
+        <router-link
+          v-if="isLoggedIn"
+          to="/profile"
+          @mouseover="dropdown=true"
+        >
           <img
             id="profile" 
             src="../assets/profile_logo.png"
             alt=""
             class="nav-btn"
-          ></a>
+          >
+        </router-link>
+        <router-link
+          v-if="!isLoggedIn"
+          to="/login"
+          @mouseover="dropdown=true"
+        >
+          <img
+            id="profile" 
+            src="../assets/profile_logo.png"
+            alt=""
+            class="nav-btn"
+          >
+        </router-link>
       </div>
     </div>
 
@@ -66,11 +83,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
       dropdown: false
     };
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn'])
   }
 };
 </script>
