@@ -4,28 +4,47 @@
       <form @submit.prevent="onLogin">
         <div class="container">
           <label for="email"><b>Email</b></label>
-          <input v-model="form.email" type="text" placeholder="Enter Email" name="email" required>
+          <input
+            v-model="form.email"
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            required
+          >
           
           <label for="password"><b>Password</b></label>
-          <input v-model="form.password" type="password" placeholder="Enter Password" name="password" required>
-          <div id="error">{{error_message}}</div>
-          <button type="submit">Login</button>
+          <input
+            v-model="form.password"
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            required
+          >
+          <div id="error">
+            {{ error_message }}
+          </div>
+          <button type="submit">
+            Login
+          </button>
           <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
       </form>
       <div class="register">
-          <router-link class="register-btn" to="/register">
-            <button>
-              Register
-            </button>
-          </router-link>
+        <router-link
+          class="register-btn"
+          to="/register"
+        >
+          <button>
+            Register
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "Login",
   data(){
@@ -35,11 +54,12 @@ export default {
         password: ''
       },
       error_message: ''
-    }
+    };
   },
   methods:{
     ...mapActions(['login']),
-    onLogin: async function(){
+    onLogin: async function() {
+      try {
         await this.login(this.form);
         let status = this.getStatus;
         if(status.success){
@@ -48,12 +68,15 @@ export default {
         else{
           this.error_message = this.getStatus.error;
         }
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   computed: {
     ...mapGetters(['getStatus'])
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

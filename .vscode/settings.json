@@ -2,4 +2,9 @@
   "eslint.format.enable": true,
   "git.ignoreLimitWarning": true,
   "editor.tabSize": 2,
+  "vetur.validation.template": false,
+  "eslint.validate": ["javascript", "javascriptreact", "vue"],
+  "eslint.workingDirectories": [
+    "./frontend"
+  ]
 }

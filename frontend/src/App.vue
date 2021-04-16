@@ -1,8 +1,8 @@
 <template>
-<div id="app">
-  <Header />
-  <router-view />
-</div>
+  <div id="app">
+    <Header />
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
   components: {
     Header
   }
-}
+};
 </script>
 
 <style lang="scss">

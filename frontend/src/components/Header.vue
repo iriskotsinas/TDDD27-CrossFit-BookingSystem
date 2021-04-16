@@ -1,32 +1,76 @@
 <template>
-  <div class="header" @mouseleave="dropdown=false">
-    <div class="bar" >
+  <div
+    class="header"
+    @mouseleave="dropdown=false"
+  >
+    <div class="bar">
       <div class="logo">
-        <router-link class="nav-btn" to="/">LOGGA</router-link>
+        <router-link
+          class="nav-btn"
+          to="/"
+        >
+          LOGGA
+        </router-link>
       </div>
       <div class="nav-container">
-        <router-link class="nav-btn btn" to="/login">Schedule</router-link>
-        <router-link class="nav-btn btn" to="/login">About us</router-link>
-        <router-link class="nav-btn btn" to="/login">Contact</router-link>
-        <a class="nav-btn" id="profile" @mouseover="dropdown=true" >Login</a>
+        <router-link
+          class="nav-btn btn"
+          to="/login"
+        >
+          Schedule
+        </router-link>
+        <router-link
+          class="nav-btn btn"
+          to="/login"
+        >
+          About us
+        </router-link>
+        <router-link
+          class="nav-btn btn"
+          to="/login"
+        >
+          Contact
+        </router-link>
+        <a
+          id="profile"
+          class="nav-btn"
+          @mouseover="dropdown=true"
+        >Login</a>
       </div>
-      </div>
+    </div>
 
-    <div v-if="dropdown" class="dropdown-container" >
-     <div class="dropdown-btn"><router-link class="btn" to="/login">Login</router-link></div>
-     <div class="dropdown-btn"><router-link class="btn" to="/register">Register</router-link></div>
+    <div
+      v-if="dropdown"
+      class="dropdown-container"
+    >
+      <div class="dropdown-btn">
+        <router-link
+          class="btn"
+          to="/login"
+        >
+          Login
+        </router-link>
+      </div>
+      <div class="dropdown-btn">
+        <router-link
+          class="btn"
+          to="/register"
+        >
+          Register
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-data() {
-  return {
-    dropdown: false
+  data() {
+    return {
+      dropdown: false
+    };
   }
-}
-}
+};
 </script>
 
 <style lang="scss" scoped>

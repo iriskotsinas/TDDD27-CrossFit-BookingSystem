@@ -1,32 +1,68 @@
 <template>
   <div class="register">
     <div class="content-container">
-      <form @submit.prevent="onRegister" >
+      <form @submit.prevent="onRegister">
         <div class="container">
           <label for="firstname"><b>First Name</b></label>
-          <input v-model="form.firstname" type="text" placeholder="Enter First Name" name="firstname" required>
+          <input
+            v-model="form.firstname"
+            type="text"
+            placeholder="Enter First Name"
+            name="firstname"
+            required
+          >
           <label for="lastname"><b>Last Name</b></label>
-          <input v-model="form.lastname" type="text" placeholder="Enter Last Name" name="lastname" required>
+          <input
+            v-model="form.lastname"
+            type="text"
+            placeholder="Enter Last Name"
+            name="lastname"
+            required
+          >
 
           <label for="email"><b>Email</b></label>
-          <input v-model="form.email" type="text" placeholder="Enter Email" name="email" required>
+          <input
+            v-model="form.email"
+            type="text"
+            placeholder="Enter Email"
+            name="email"
+            required
+          >
           <label for="password"><b>Password</b></label>
-          <input v-model="form.password" type="password" placeholder="Enter Password" name="password" required>
-          <input v-model="passwordRepeat" type="password" placeholder="Enter Password Again" name="passwordRepeat" required>
-          <div id="error">{{error_message}}</div>
-          <button type="submit">Register</button>
+          <input
+            v-model="form.password"
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            required
+          >
+          <input
+            v-model="passwordRepeat"
+            type="password"
+            placeholder="Enter Password Again"
+            name="passwordRepeat"
+            required
+          >
+          <div id="error">
+            {{ error_message }}
+          </div>
+          <button type="submit">
+            Register
+          </button>
           <span class="psw">Forgot <a href="#">password?</a></span>
-          <div class="account">Already have an account? <router-link to="/login"><button>Log in</button></router-link></div>
+          <div class="account">
+            Already have an account? <router-link to="/login">
+              <button>Log in</button>
+            </router-link>
+          </div>
         </div>
       </form>
-
-      
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "Register",
   data(){
@@ -39,34 +75,34 @@ export default {
       },
       passwordRepeat: '',
       error_message: ''
-    }
+    };
   },
-  methods:{
+  methods: {
     ...mapActions(['register']),
     onRegister: async function(){
-      if(this.form.password === this.passwordRepeat){
+      try {
+        if (this.form.password === this.passwordRepeat) {
         await this.register(this.form);
         let status = this.getStatus;
         // console.log(status, localStorage.getItem("jwt"));
-        if(status.success){
+        if (status.success) {
           this.$store.state.loggedIn = true;
           this.$router.replace('/');
-        }
-        else{
+        } else {
           this.error_message = this.getStatus.error;
         }
-      }
-      else{
+      } else {
         this.error_message = 'Passwords do not match';
       }
-
+    } catch (error ) {
+      console.log(error);
     }
   },
   computed: {
     ...mapGetters(['getStatus'])
   }
-
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
