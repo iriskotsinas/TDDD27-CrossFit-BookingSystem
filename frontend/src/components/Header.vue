@@ -4,7 +4,7 @@
     @mouseleave="dropdown=false"
   >
     <div class="bar">
-      <div class="logo">
+      <div class="logo"> 
         <router-link
           class="nav-btn"
           to="/"
@@ -31,11 +31,13 @@
         >
           Contact
         </router-link>
-        <a
-          id="profile"
-          class="nav-btn"
-          @mouseover="dropdown=true"
-        >Login</a>
+        <a @mouseover="dropdown=true">
+          <img
+            id="profile" 
+            src="../assets/profile_logo.png"
+            alt=""
+            class="nav-btn"
+          ></a>
       </div>
     </div>
 
@@ -74,9 +76,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-#profile{
-  cursor: default;
+img {
+  height: auto;
+  width: 1.5em;
 }
 .dropdown-container{
   width: 20em;
@@ -102,7 +104,7 @@ export default {
 }
 .nav-btn {
   font-size: 1.1rem;
-  width: 100%;
+  // width: 100%;
   margin-right: 2em;
 }
 .dropdown-btn{

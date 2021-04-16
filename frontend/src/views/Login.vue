@@ -56,6 +56,9 @@ export default {
       error_message: ''
     };
   },
+  computed: {
+    ...mapGetters(['getStatus'])
+  },
   methods:{
     ...mapActions(['login']),
     onLogin: async function() {
@@ -72,10 +75,8 @@ export default {
         console.log(error);
       }
     }
-  },
-  computed: {
-    ...mapGetters(['getStatus'])
   }
+
 };
 </script>
 
