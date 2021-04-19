@@ -24,6 +24,9 @@ export default {
   text-align: center;
   overflow: auto;
   color: $text-color-standard;
+  
+}
+html{
   background-color: $background-color;
 }
 body{

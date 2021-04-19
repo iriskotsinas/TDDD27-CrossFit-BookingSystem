@@ -15,7 +15,7 @@
       <div class="nav-container">
         <router-link
           class="nav-btn btn"
-          to="/login"
+          to="/schedule"
         >
           Schedule
         </router-link>
