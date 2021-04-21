@@ -10,8 +10,7 @@ const sessionSchema = new mongoose.Schema({
     required: true,
   },
   users: {
-    type: Array,
-    required: true,
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   },
   maxSlots: {
     type: Number,
@@ -31,7 +30,7 @@ const sessionSchema = new mongoose.Schema({
   },
 });
 
-const Session = mongoose.model('Booking', sessionSchema);
+const Session = mongoose.model('Session', sessionSchema);
 
 // eslint-disable-next-line import/prefer-default-export
 export { Session };

@@ -13,29 +13,27 @@
 
 <script>
 import Session from "../components/Session";
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "Schedule",
   components: {Session},
   data(){
     return  {
-      sessions:[
-        {
-          id: 1,
-          title: "Session 1",
-          data: Date.now
-        },
-        {
-          id: 2,
-          title: "Session 2",
-          data: Date.now
-        },
-        {
-          id: 3,
-          title: "Session 3",
-          data: Date.now
-        },
-      ]
+      sessions:{}
     };
+  },
+  computed: {
+    ...mapGetters(['getSessions'])
+  },
+  async created(){
+   await this.onFetch();
+   },
+  methods:{
+    ...mapActions(['fetch']),
+    onFetch: async function(){
+      await this.fetch();
+      this.sessions= this.getSessions;
+    }
   }
 };
 </script>
