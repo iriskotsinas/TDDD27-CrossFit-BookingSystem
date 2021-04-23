@@ -4,6 +4,7 @@ import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Profile from "../views/Profile.vue";
 import Schedule from "../views/Schedule.vue";
+import Admin from "../views/Admin.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/schedule",
     name: "Schedule",
     component: Schedule,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: Admin,
   }
 ];
 

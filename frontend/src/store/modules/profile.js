@@ -16,17 +16,21 @@ const actions = {
   async login({ commit }, form) {
     try {
       const response = await axios.post('http://localhost:5000/api/login', form);
-    if (response.data.token) {
+    if (response.data.status) {
       const token = response.data.token;
       if(token){
         localStorage.setItem("jwt", token);
-        commit('updateUser', response.data);
+        commit('updateUser', response.data.user);
       }
     }
     commit('setStatus', response.data);
     } catch (error) {
       console.log("ERROR");
     }
+  },
+  async logout({ commit }) {
+    localStorage.removeItem("jwt");
+    commit('logoutUser');
   },
   async register({ commit }, form) {
     try {
@@ -36,19 +40,27 @@ const actions = {
         localStorage.setItem("jwt", token);
       }
       commit('setStatus', response.data);
-      commit('updateUser', response.data);
+      commit('updateUser', response.data.user);
     } catch (error) {
       console.log("ERROR");
     }
-  }
+  },
+  async saveUser({ commit }, user) {
+    commit('updateUser', user);
+  },
 };
 const mutations = {
   setStatus: (state, response) =>
     (state.status = { success: response.status, error: response.error}),
   updateUser: (state, response) => {
-    state.user = response.user;
+    state.user = response;
     state.loggedIn = true;
-  }
+  },
+  logoutUser:(state) => {
+    state.user = {},
+    state.loggedIn = false;
+    state.status = false;
+  },
 };
 
 export default {

@@ -59,7 +59,7 @@
     </div>
 
     <div
-      v-if="dropdown"
+      v-if="dropdown && !isLoggedIn" 
       class="dropdown-container"
     >
       <div class="dropdown-btn">
@@ -79,11 +79,33 @@
         </router-link>
       </div>
     </div>
+    <div
+      v-if="dropdown && isLoggedIn" 
+      class="dropdown-container"
+    >
+      <div class="dropdown-btn">
+        <router-link
+          class="btn"
+          to="/profile"
+        >
+          My profile
+        </router-link>
+      </div>
+      <div class="dropdown-btn">
+        <router-link
+          class="btn"
+          to="/"
+          @click="onLogout"
+        >
+          Logout
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -92,6 +114,12 @@ export default {
   },
   computed: {
     ...mapGetters(['isLoggedIn'])
+  },
+  methods:{
+    ...mapActions(["logout"]),
+    onLogout: function(){
+      this.logout();
+    }
   }
 };
 </script>

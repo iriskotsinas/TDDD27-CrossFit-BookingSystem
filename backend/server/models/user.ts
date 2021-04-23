@@ -27,6 +27,13 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  sessions: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Session' }],
+  },
+  role: {
+    type: String,
+    required: true,
+  },
 
 });
 

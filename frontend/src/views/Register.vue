@@ -77,6 +77,9 @@ export default {
       error_message: ''
     };
   },
+  computed: {
+    ...mapGetters(['getStatus'])
+  },
   methods: {
     ...mapActions(['register']),
     onRegister: async function(){
@@ -84,12 +87,12 @@ export default {
         if (this.form.password === this.passwordRepeat) {
         await this.register(this.form);
         let status = this.getStatus;
-        // console.log(status, localStorage.getItem("jwt"));
+        console.log(status);
         if (status.success) {
           this.$store.state.loggedIn = true;
           this.$router.replace('/');
         } else {
-          this.error_message = this.getStatus.error;
+          this.error_message = status.error;
         }
       } else {
         this.error_message = 'Passwords do not match';
@@ -97,9 +100,6 @@ export default {
     } catch (error ) {
       console.log(error);
     }
-  },
-  computed: {
-    ...mapGetters(['getStatus'])
   }
   }
 };

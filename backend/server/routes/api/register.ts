@@ -22,6 +22,7 @@ router.post('/register', async (req: Request, res: Response) => {
     lastname: req.body.lastname,
     email: req.body.email,
     password: hashedPassword,
+    role: 'member',
   });
 
   try {
@@ -41,5 +42,11 @@ router.post('/register', async (req: Request, res: Response) => {
     return res.status(400).send(err);
   }
 });
-
+router.post('/admin', async (req: Request, res: Response) => {
+  const { userId } = req.body;
+  const user = await User.findOne({ _id: userId });
+  user.role = 'admin';
+  await user.save();
+  return res.status(201).json({ user });
+});
 export default router;

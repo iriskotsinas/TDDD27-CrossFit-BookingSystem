@@ -26,7 +26,7 @@ export default {
     ...mapGetters(['getSessions'])
   },
   async created(){
-   await this.onFetch();
+    await this.onFetch();
    },
   methods:{
     ...mapActions(['fetch']),

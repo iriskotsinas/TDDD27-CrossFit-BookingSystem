@@ -11,6 +11,7 @@ const actions = {
   async fetch({commit}) {
     try {
       const response = await axios.get('http://localhost:5000/api/booking');
+      console.log(response.data);
       commit("saveSessions", response.data);
     } catch (error) {
       console.log("ERROR");
