@@ -23,10 +23,11 @@ router.post('/booking', auth, async (req: Request, res: Response) => {
   const {
     activity, date, maxSlots, description, instructor, length,
   } = req.body;
-
+  const expireAt = date;
   const session = new Session({
-    activity, date, maxSlots, description, instructor, length,
+    activity, date, expireAt, maxSlots, description, instructor, length,
   });
+
   await session.save();
   return res.status(201).send(session);
 });
