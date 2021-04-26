@@ -6,7 +6,11 @@ import { User } from '../../models/user';
 const router = express.Router();
 
 router.get('/booking', async (req: Request, res: Response) => {
-  const session = await Session.find({}).sort({ date: 'ascending' });
+  const { date } = req.query;
+  if (!date) return res.status(400);
+  const ndate = new Date(date.toString());
+  const end = new Date(ndate.getFullYear(), ndate.getMonth(), ndate.getDate() + 1, 0, 59, 59);
+  const session = await Session.find({ date: { $gte: date, $lt: end } }).sort({ date: 'ascending' });
   return res.status(200).send(session);
 });
 

@@ -1,12 +1,21 @@
 <template>
   <div class="schedule">
     Boka pass
+    <button @click="onPrev">
+      Prev
+    </button>
+    <button @click="onNext">
+      Next
+    </button>
     <div
       v-for="session in sessions"
       :key="session.id"
       class="center"
     >
-      <Session :session="session" />
+      <Session
+        v-if="!Loading"
+        :session="session"
+      />
     </div>
   </div>
 </template>
@@ -19,7 +28,9 @@ export default {
   components: {Session},
   data(){
     return  {
-      sessions:{}
+      sessions:{},
+      date: new Date(Date.now()),
+      Loading: true
     };
   },
   computed: {
@@ -31,8 +42,20 @@ export default {
   methods:{
     ...mapActions(['fetch']),
     onFetch: async function(){
-      await this.fetch();
+      console.log(this.date);
+      await this.fetch(this.date.toDateString());
       this.sessions= this.getSessions;
+      this.Loading = false;
+    },
+    onPrev: async function(){
+      this.Loading = true;
+      this.date.setDate(new Date(this.date).getDate() - 1);
+      await this.onFetch();
+    },
+    onNext: async function(){
+      this.Loading = true;
+      this.date.setDate(new Date(this.date).getDate() + 1);
+      await this.onFetch();
     }
   }
 };

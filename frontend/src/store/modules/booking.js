@@ -8,9 +8,12 @@ const getters = {
   getSessions: state => state.sessions
 };
 const actions = {
-  async fetch({commit}) {
+  async fetch({commit}, date) {
     try {
-      const response = await axios.get('http://localhost:5000/api/booking');
+      const response = await axios.get('http://localhost:5000/api/booking',{ 
+      params: {
+        date
+      }});
       console.log(response.data);
       commit("saveSessions", response.data);
     } catch (error) {
