@@ -97,14 +97,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getUserDetails', 'isLoggedIn']),
+    ...mapGetters(['getUserDetails', 'isLoggedIn', 'isAdmin']),
     errorMessage() {
       if (!this.form.date) return 'Date is required.';
       return '';
     },
   },
   created(){
-    if(!this.isLoggedIn || this.getUserDetails.role !== 'admin'){
+    if(!this.isLoggedIn || !this.isAdmin) {
       this.$router.replace("/");
     }
     this.user = this.getUserDetails;
@@ -113,7 +113,10 @@ export default {
     onSubmit: async function(){
       console.log(this.form);
       try{
-        await axios.post('http://localhost:5000/api/booking', this.form);
+        await axios.post('http://localhost:5000/api/booking', this.form, 
+        {
+          headers: { 'auth-token': localStorage.getItem('jwt')},
+        });
       }catch(err){
         console.log(err);
       }

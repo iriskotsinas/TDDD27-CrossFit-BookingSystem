@@ -91,6 +91,17 @@
           My profile
         </router-link>
       </div>
+      <div
+        v-if="isAdmin"
+        class="dropdown-btn"
+      >
+        <router-link
+          class="btn"
+          to="/admin"
+        >
+          Admin
+        </router-link>
+      </div>
       <div class="dropdown-btn">
         <router-link
           class="btn"
@@ -113,7 +124,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn', 'isAdmin'])
   },
   methods:{
     ...mapActions(["logout"]),

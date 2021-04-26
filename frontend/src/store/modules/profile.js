@@ -9,7 +9,8 @@ const state = {
 const getters = {
   isLoggedIn: state => state.loggedIn,
   getStatus: state => state.status,
-  getUserDetails: state => state.user
+  getUserDetails: state => state.user,
+  isAdmin: state => state.user.role == 'admin'
 };
 
 const actions = {
