@@ -1,4 +1,7 @@
 <template>
+  <div class="signUp">
+    Register
+  </div>
   <div class="register">
     <div class="content-container">
       <form
@@ -8,7 +11,7 @@
         <label
           class="label"
           for="firstname"
-        ><b>First Name</b></label>
+        ><b>First name</b></label>
         <input
           v-model="form.firstname"
           type="text"
@@ -19,7 +22,7 @@
         <label
           class="label"
           for="lastname"
-        ><b>Last Name</b></label>
+        ><b>Last name</b></label>
         <input
           v-model="form.lastname"
           type="text"
@@ -63,7 +66,6 @@
         <button type="submit">
           Register
         </button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
         <br>
       </form>
       <div class="account">
@@ -138,6 +140,14 @@ export default {
   margin: auto;
 }
 
+.signUp {
+  color: white;
+  font-size: 40px;
+  margin: auto;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
 /* Full-width inputs */
 input[type=text], input[type=password] {
   width: 30em;
@@ -173,6 +183,7 @@ button {
 
 #login-btn {
   width: 40%;
+  margin: 2em 0 0 0;
 }
 
 /* Add a hover effect for buttons */
@@ -186,7 +197,7 @@ button:hover {
   display: grid;
   width: 50%;
   justify-content: space-evenly;
-  margin: 4em 0 0 0;
+  margin: 2em 0 0 0;
   border-right: 2px solid red;
 }
 
@@ -194,6 +205,7 @@ button:hover {
   width: 50%;
   margin: auto;
   color: white;
+  display: grid;
 }
 
 span.psw {
