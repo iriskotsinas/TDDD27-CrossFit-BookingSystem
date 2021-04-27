@@ -1,62 +1,79 @@
 <template>
   <div class="register">
     <div class="content-container">
-      <form @submit.prevent="onRegister">
-        <div class="container">
-          <label for="firstname"><b>First Name</b></label>
-          <input
-            v-model="form.firstname"
-            type="text"
-            placeholder="Enter First Name"
-            name="firstname"
-            required
-          >
-          <label for="lastname"><b>Last Name</b></label>
-          <input
-            v-model="form.lastname"
-            type="text"
-            placeholder="Enter Last Name"
-            name="lastname"
-            required
-          >
+      <form
+        class="container"
+        @submit.prevent="onRegister"
+      >
+        <label
+          class="label"
+          for="firstname"
+        ><b>First Name</b></label>
+        <input
+          v-model="form.firstname"
+          type="text"
+          placeholder="Enter first name"
+          name="firstname"
+          required
+        >
+        <label
+          class="label"
+          for="lastname"
+        ><b>Last Name</b></label>
+        <input
+          v-model="form.lastname"
+          type="text"
+          placeholder="Enter last name"
+          name="lastname"
+          required
+        >
 
-          <label for="email"><b>Email</b></label>
-          <input
-            v-model="form.email"
-            type="text"
-            placeholder="Enter Email"
-            name="email"
-            required
-          >
-          <label for="password"><b>Password</b></label>
-          <input
-            v-model="form.password"
-            type="password"
-            placeholder="Enter Password"
-            name="password"
-            required
-          >
-          <input
-            v-model="passwordRepeat"
-            type="password"
-            placeholder="Enter Password Again"
-            name="passwordRepeat"
-            required
-          >
-          <div id="error">
-            {{ error_message }}
-          </div>
-          <button type="submit">
-            Register
-          </button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
-          <div class="account">
-            Already have an account? <router-link to="/login">
-              <button>Log in</button>
-            </router-link>
-          </div>
+        <label
+          class="label"
+          for="email"
+        ><b>Email</b></label>
+        <input
+          v-model="form.email"
+          type="text"
+          placeholder="Enter email"
+          name="email"
+          required
+        >
+        <label
+          class="label"
+          for="password"
+        ><b>Password</b></label>
+        <input
+          v-model="form.password"
+          type="password"
+          placeholder="Enter password"
+          name="password"
+          required
+        >
+        <input
+          v-model="passwordRepeat"
+          type="password"
+          placeholder="Enter password again"
+          name="passwordRepeat"
+          required
+        >
+        <div id="error">
+          {{ error_message }}
         </div>
+        <button type="submit">
+          Register
+        </button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+        <br>
       </form>
+      <div class="account">
+        Already have an account?
+        <router-link to="/login">
+          <button id="login-btn">
+            Log in
+          </button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -109,14 +126,16 @@ export default {
 #error{
   color: red;
 }
+
 .register {
   display: flex;
   justify-content: center;
 }
 
 .content-container {
-  display: inline-flex;
-  justify-content: space-evenly;
+  display: flex;
+  width: 100%;
+  margin: auto;
 }
 
 /* Full-width inputs */
@@ -126,7 +145,19 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  background-color: black;
+  color: white;
   box-sizing: border-box;
+
+  &:focus {
+    outline-color: white;
+  }
+}
+
+.label {
+  justify-self: left;
+  color: white;
+  margin: 1em 0 0 0;
 }
 
 /* Set a style for all buttons */
@@ -140,6 +171,10 @@ button {
   width: 100%;
 }
 
+#login-btn {
+  width: 40%;
+}
+
 /* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
@@ -147,15 +182,33 @@ button:hover {
 
 /* Add padding to containers */
 .container {
-  padding: 16px;
+  padding: 1em;
   display: grid;
+  width: 50%;
   justify-content: space-evenly;
+  margin: 4em 0 0 0;
+  border-right: 2px solid red;
 }
 
-/* The "Forgot password" text */
+.account {
+  width: 50%;
+  margin: auto;
+  color: white;
+}
+
 span.psw {
   float: right;
   padding-top: 16px;
+  color: white;
+  a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* Change styles for span and cancel button on extra small screens */

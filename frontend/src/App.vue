@@ -26,9 +26,11 @@ export default {
   color: $text-color-standard;
   
 }
-html{
-  background-color: $background-color;
+
+html {
+  background-color: black;
 }
+
 body{
   margin: 0;
   padding: 0;
