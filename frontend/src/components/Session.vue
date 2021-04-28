@@ -1,31 +1,62 @@
 <template>
-  <div :class="{'signed': signedUp, 'unsigned':!signedUp}">
-    <h1>{{ session.activity }}</h1>
-    <p>{{ session.date }}</p>
-    <button
-      v-if="isLoggedIn && !signedUp"
-      @click="onSignup(session._id)"
-    >
-      Sign up
-    </button>
-    <button
-      v-if="isLoggedIn && signedUp"
-      @click="onCancel(session._id)"
-    >
-      Cancel
-    </button>
-    <button
-      v-if="isLoggedIn && isAdmin"
-      @click="onShowUsers(session._id)"
-    >
-      Registered members
-    </button>
-    <button
-      v-if="isLoggedIn && isAdmin"
-      @click="onDeleteSession(session._id)"
-    >
-      Delete session
-    </button>
+  <div
+    class="session"
+  >
+    <div class="time">
+      {{ session.date.substring(11,16) + " - " + endTime.substring(11,16) }}
+    </div>
+    <div class="activity">
+      {{ session.activity }}
+    </div>
+    <div class="slots">
+      {{ session.users.length + '/' + session.maxSlots }}
+    </div>
+    <div
+      class="signup"
+    >  
+      <button
+        v-if="isLoggedIn && !signedUp"
+        class="signup-btn"
+        :class="{'signed': signedUp, 'unsigned':!signedUp}"
+        @click="onSignup(session._id)"
+      >
+        SIGN UP
+      </button>
+      <button
+        v-if="isLoggedIn && signedUp"
+        class="signup-btn"
+        :class="{'signed': signedUp, 'unsigned':!signedUp}"
+        @click="onCancel(session._id)"
+      >
+        Cancel
+      </button>
+    </div>
+    <div class="details-container">
+      Details:
+      <div>{{ session.description }}</div>
+    </div>
+    <div class="details-container">
+      <div>Instructor: {{ session.instructor }}</div>
+      <div>Session length: {{ session.length }}min</div>
+    </div>
+    <div class="details-container">
+      <button
+        v-if="isLoggedIn && isAdmin"
+        class="details-btn"
+        @click="onShowUsers(session._id)"
+      >
+        Registered members
+      </button>
+    </div>
+    <div class="details-container">
+      <button
+        v-if="isLoggedIn && isAdmin"
+        class="delete-btn"
+        @click="onDeleteSession(session._id)"
+      >
+        Delete session
+      </button>
+    </div>
     <Modal
       v-if="showUsers"
       :users="users"
@@ -54,7 +85,8 @@ export default {
     return {
       signedUp: false,
       users: {},
-      showUsers: false
+      showUsers: false,
+      endTime: ''
     };
   },
   computed: {
@@ -65,6 +97,11 @@ export default {
     for(const s in sessions)
       if(sessions[s] === this.session._id)
         this.signedUp = true;
+  },
+  mounted(){
+    const date = new Date(this.session.date);
+    this.endTime = new Date(date.getTime() + this.session.length*60000).toISOString();
+    console.log(this.session.users.length);
   },
   methods:{
     ...mapActions(['saveUser']),
@@ -140,16 +177,61 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+button{
+  border: none;
+  outline: none;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+.details-btn{
+  height: 3em;
+  width: 6em;
+  color: rgb(255, 255, 255);
+  background-color: blue;
+  font-weight: bold;
+}
+.delete-btn{
+  height: 3em;
+  width: 6em;
+  color: rgb(255, 255, 255);
+  background-color: rgb(255, 0, 0);
+  font-weight: bold;
+}
+.details-container{
+  display: none;
+  font-size: 0.8rem;
+  padding-top: 1em;
+}
+.signup-btn{
+  height: 3em;
+  width: 6em;
+  color: white;
+  font-weight: bold;
+}
+.session{
+  height: auto;
+  color: $text-color-black;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 1em 3em;
+  margin-bottom: 0.2em;
+  display: grid;
+  gap:1em;
+  grid-template-columns: 1fr 15vw 10vw 5vw;
+  text-align: left;
+  justify-content: center;
+  
+  background-color: white;
+}
+.session:hover .details-container{
+  height: auto;
+  display: block;
+}
 .signed{
-  height: 10em;
-  width: 100%;
-  // margin: auto;
-  background-color: green;
+  background: $secondary-color;
 }
 .unsigned{
-  height: 10em;
-  width: 100%;
-  // margin: auto;
-  background-color: red;
+  background: rgb(63, 158, 0);
 }
 </style>
