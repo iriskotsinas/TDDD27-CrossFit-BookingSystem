@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <div class="poster">
+      <img
+        src="../assets/cross2.jpeg"
+        alt="crossfit"
+      >
       <div class="center-text">
         WE ARE POWER
       </div>
@@ -26,24 +30,26 @@ export default {
 </script>
 
 <style lang= "scss" scoped>
-.container{
+.container {
   height: 200vh;
   margin: 0;
 }
 
-.box{
+.box {
   width: 80vw;
   height: 50vh;
   margin: 10em auto;
   background-color: rgb(0, 0, 0);
   padding: 1em;
 }
-.text-header{
+
+.text-header {
   font-size: 3rem;
   height: 20%;
   color: $secondary-color;
 }
-.text{
+
+.text {
   display: flex;
   float: left;
   width: 50%;
@@ -61,17 +67,29 @@ export default {
   width: 30vw;
   height: 30vh;
   background: rgb(206, 206, 206);
-
 }
-.poster{
-  height: 100vh;
+
+img {
+  height: 110vh;
   width: 100%;
   position: relative;
   background-color: gray;
 }
-.center-text{
-    font-size: 5rem;
-    padding-top: 30vh;
+
+/* .poster {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: gray;
+} */
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: bold;
 }
 
 </style>

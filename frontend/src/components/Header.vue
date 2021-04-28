@@ -9,7 +9,11 @@
           class="nav-btn"
           to="/"
         >
-          LOGGA
+          <img 
+            src="https://static.wixstatic.com/media/9c3023_6523bc46c4cd43a895813995faf96c32~mv2.png/v1/fill/w_350,h_112,al_c,q_85,usm_0.66_1.00_0.01/hitness_UTAN_svart_bg_ingen%20slogan2x.webp" 
+            alt="hitness_UTAN_svart_bg_ingen slogan2x.png" 
+            class="logo"
+          >
         </router-link>
       </div>
       <div class="nav-container">
@@ -38,7 +42,7 @@
         >
           <img
             id="profile" 
-            src="../assets/profile_logo.png"
+            src="../assets/profile2.jpeg"
             alt=""
             class="nav-btn"
           >
@@ -138,18 +142,26 @@ export default {
 <style lang="scss" scoped>
 img {
   height: auto;
-  width: 1.5em;
+  width: 1.8em;
 }
-.dropdown-container{
+
+.logo {
+  margin: 0 0 0 1em;
+  width: 175px;
+  height: 56px;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.dropdown-container {
   width: 20em;
   height: auto;
   position: absolute;
-  background: pink;
   right: 0;
-  top:4vh;
+  /* top: 4vh; */
   z-index: 1;
-
 }
+
 .bar {
   font-family: $font-header;
   width: 100%;
@@ -157,17 +169,20 @@ img {
   background-color: $primary-color;
   display: inline-flex;
   justify-content: space-between;
+  padding: 2em 0 2em 0;
 }
-.nav-container{
+
+.nav-container {
   justify-content: space-evenly;
   margin: auto 0;
 }
+
 .nav-btn {
   font-size: 1.1rem;
-  // width: 100%;
-  margin-right: 2em;
+  margin-right: 4em;
 }
-.dropdown-btn{
+
+.dropdown-btn {
   margin: auto;
   width: 100%;
   height: 10%;
@@ -175,11 +190,17 @@ img {
   padding: 1em;
   border-bottom: 4px solid black;
 }
-.btn{
+
+.btn {
   border: none;
   outline: none;
   color: white;
   text-decoration: none;
   text-align: center;
+
+  &:hover {
+    opacity: 0.6;
+    transition: 0.3s;
+  }
 }
 </style>
