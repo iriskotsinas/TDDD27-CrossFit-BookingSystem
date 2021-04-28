@@ -1,41 +1,60 @@
 <template>
   <div class="login">
+    <div class="signUp">
+      My account
+    </div>
     <div class="content-container">
-      <form @submit.prevent="onLogin">
-        <div class="container">
-          <label for="email"><b>Email</b></label>
-          <input
-            v-model="form.email"
-            type="text"
-            placeholder="Enter Email"
-            name="email"
-            required
-          >
-          
-          <label for="password"><b>Password</b></label>
-          <input
-            v-model="form.password"
-            type="password"
-            placeholder="Enter Password"
-            name="password"
-            required
-          >
-          <div id="error">
-            {{ error_message }}
-          </div>
-          <button type="submit">
-            Login
-          </button>
-          <span class="psw">Forgot <a href="#">password?</a></span>
+      <form
+        class="container"
+        @submit.prevent="onLogin"
+      >
+        <div class="heading">
+          Login
         </div>
+        <label
+          for="email"
+          class="label"
+        ><b>Email</b></label>
+        <input
+          v-model="form.email"
+          type="text"
+          placeholder="Enter email"
+          name="email"
+          required
+        >
+        <br>
+        <label
+          for="password"
+          class="label"
+        ><b>Password</b></label>
+        <input
+          v-model="form.password"
+          type="password"
+          placeholder="Enter password"
+          name="password"
+          required
+        >
+        <div id="error">
+          {{ error_message }}
+        </div>
+
+        <button type="submit">
+          Login
+        </button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
       </form>
+
       <div class="register">
+        <div class="heading">
+          Register
+        </div>
+        <p>Want to become a tougher you?</p>
+        <p>Become a member today.</p>
         <router-link
-          class="register-btn"
           to="/register"
         >
-          <button>
-            Register
+          <button id="register-btn">
+            Register here
           </button>
         </router-link>
       </div>
@@ -81,17 +100,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#error{
+
+#error {
   color: red;
 }
+
+.heading {
+  color: white;
+  justify-self: left;
+  font-size: 30px;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
 .login {
   display: grid;
   grid-template-columns: auto;
 }
 
+.label {
+  justify-self: left;
+  color: white;
+}
+
 .content-container {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  margin: auto;
+}
+
+.register {
+  width: 50%;
+  margin: auto;
+  color: white;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 1em;
+  display: grid;
+  width: 50%;
   justify-content: space-evenly;
+  margin: 4em 0 0 0;
+  border-right: 2px solid red;
+}
+
+.signUp {
+  color: white;
+  font-size: 40px;
+  margin: auto;
+  margin-top: 2em;
+  font-weight: bold;
 }
 
 /* Full-width inputs */
@@ -101,7 +160,13 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  background-color: black;
+  color: white;
   box-sizing: border-box;
+
+  &:focus {
+    outline-color: white;
+  }
 }
 
 /* Set a style for all buttons */
@@ -113,6 +178,14 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
+
+  &:focus {
+    outline-color: white;
+  }
+}
+
+#register-btn {
+  width: 40%;
 }
 
 /* Add a hover effect for buttons */
@@ -120,17 +193,20 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Add padding to containers */
-.container {
-  padding: 16px;
-  display: grid;
-  justify-content: space-evenly;
-}
-
 /* The "Forgot password" text */
 span.psw {
   float: right;
   padding-top: 16px;
+  color: white;
+  a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 /* Change styles for span and cancel button on extra small screens */
