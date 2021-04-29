@@ -2,17 +2,17 @@
   <div
     class="session"
   >
-    <div class="time">
+    <div class="center">
       {{ session.date.substring(11,16) + " - " + endTime.substring(11,16) }}
     </div>
-    <div class="activity">
+    <div class="center">
       {{ session.activity }}
     </div>
-    <div class="slots">
+    <div class="center">
       {{ session.users.length + '/' + session.maxSlots }}
     </div>
     <div
-      class="signup"
+      class="signup center"
     >  
       <button
         v-if="isLoggedIn && !signedUp"
@@ -20,7 +20,7 @@
         :class="{'signed': signedUp, 'unsigned':!signedUp}"
         @click="onSignup(session._id)"
       >
-        SIGN UP
+        Sign up
       </button>
       <button
         v-if="isLoggedIn && signedUp"
@@ -31,30 +31,29 @@
         Cancel
       </button>
     </div>
-    <div class="details-container">
-      Details:
+    <div class="details">
       <div>{{ session.description }}</div>
     </div>
-    <div class="details-container">
+    <div class="details">
       <div>Instructor: {{ session.instructor }}</div>
       <div>Session length: {{ session.length }}min</div>
     </div>
-    <div class="details-container">
+    <div class="details details-bottom">
       <button
         v-if="isLoggedIn && isAdmin"
         class="details-btn"
         @click="onShowUsers(session._id)"
       >
-        Registered members
+        Show Users
       </button>
     </div>
-    <div class="details-container">
+    <div class="details details-bottom">
       <button
         v-if="isLoggedIn && isAdmin"
         class="delete-btn"
         @click="onDeleteSession(session._id)"
       >
-        Delete session
+        Delete
       </button>
     </div>
     <Modal
@@ -81,6 +80,7 @@ export default {
       default: null
     }
   },
+  emits: ['update-sessions'],
   data() {
     return {
       signedUp: false,
@@ -90,7 +90,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoggedIn', 'getUserDetails', 'isAdmin'])
+    ...mapGetters(['isLoggedIn', 'getUserDetails', 'isAdmin', 'getSessionById'])
   },
   created(){
     const sessions = this.getUserDetails.sessions;
@@ -101,10 +101,9 @@ export default {
   mounted(){
     const date = new Date(this.session.date);
     this.endTime = new Date(date.getTime() + this.session.length*60000).toISOString();
-    console.log(this.session.users.length);
   },
   methods:{
-    ...mapActions(['saveUser']),
+    ...mapActions(['saveUser', 'saveSession']),
     onSignup: async function(id){
       try{
         const response = await axios.post('http://localhost:5000/api/signup', {
@@ -116,7 +115,9 @@ export default {
         if(response.data.error) console.log(response.data.error);
         else{
           this.signedUp = true;
+          await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
+          this.$emit('update-sessions');
         }
       }catch(err){
         console.log(err);
@@ -133,7 +134,9 @@ export default {
         if(response.data.error) console.log(response.data.error);
         else{
           this.signedUp = false;
+          await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
+          this.$emit('update-sessions');
         }
       }catch(err){
         console.log(err);
@@ -183,48 +186,58 @@ button{
   text-decoration: none;
   text-align: center;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: $font-header;
+  font-weight: bold;
+  height: 2em;
+  width: 8em;
+  
+  &:hover{
+    opacity: 0.6;
+  }
 }
 .details-btn{
-  height: 3em;
-  width: 6em;
-  color: rgb(255, 255, 255);
-  background-color: blue;
-  font-weight: bold;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
 }
 .delete-btn{
-  height: 3em;
-  width: 6em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   background-color: rgb(255, 0, 0);
-  font-weight: bold;
 }
-.details-container{
+.details{
   display: none;
   font-size: 0.8rem;
-  padding-top: 1em;
+  padding: 1em 0;
+  font-family: $font-text;
+  font-weight: 300;
+}
+.details-bottom{
+  align-self: end;
 }
 .signup-btn{
-  height: 3em;
-  width: 6em;
-  color: white;
+  height: 2em;
+  width: 8em;
+  color: rgb(0, 0, 0);
   font-weight: bold;
 }
 .session{
+  background-color: rgb(12, 12, 12);
+  color: white;
+  margin-bottom: 0.2em;
+  padding: 1em 3em;
   height: auto;
-  color: $text-color-black;
   font-size: 1.3rem;
   font-weight: bold;
-  padding: 1em 3em;
-  margin-bottom: 0.2em;
   display: grid;
-  gap:1em;
-  grid-template-columns: 1fr 15vw 10vw 5vw;
-  text-align: left;
+  gap: 1em;
+  grid-template-columns: 1fr 15vw 10vw 7vw;
+  text-align: justify;
   justify-content: center;
-  
-  background-color: white;
 }
-.session:hover .details-container{
+.center{
+  margin: auto 0;
+}
+.session:hover .details{
   height: auto;
   display: block;
 }
@@ -232,6 +245,6 @@ button{
   background: $secondary-color;
 }
 .unsigned{
-  background: rgb(63, 158, 0);
+  background: rgb(255, 255, 255);
 }
 </style>

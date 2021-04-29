@@ -2,7 +2,7 @@
   <div class="modal">
     <button
       class="close"
-      @click="$emit('show', false)"
+      @click="$emit('show')"
     >
       CLOSE HERE
     </button>

@@ -59,7 +59,7 @@ router.post('/signup', auth, async (req: Request, res: Response) => {
   session.users.push(userId);
   await session.save();
   await user.save();
-  return res.status(201).json({ user });
+  return res.status(201).json({ user, session });
 });
 
 router.delete('/signup', auth, async (req: Request, res: Response) => {
@@ -70,7 +70,7 @@ router.delete('/signup', auth, async (req: Request, res: Response) => {
   session.users.pull(userId);
   await session.save();
   await user.save();
-  return res.status(201).json({ user });
+  return res.status(201).json({ user, session });
 });
 
 export default router;
