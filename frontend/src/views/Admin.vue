@@ -175,7 +175,7 @@ export default {
 <style lang="scss" scoped>
 
 .admin {
- margin: 5em 0;
+ margin: 10em 0;
 }
 
 #error {
@@ -220,7 +220,7 @@ input[type=text], input[type=password], input[type=number] {
   margin: .8em 0;
   display: inline-block;
   border: 1px solid #ccc;
-  background-color: black;
+  background-color: $background-color;
   color: white;
   box-sizing: border-box;
 
@@ -281,7 +281,7 @@ span.psw {
     margin: .8em 0;
     display: inline-block;
     border: 1px solid #ccc;
-    background-color: black;
+    background-color: $background-color;
     color: white;
     box-sizing: border-box;
 

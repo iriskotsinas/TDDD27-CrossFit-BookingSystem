@@ -66,55 +66,55 @@
       v-if="dropdown && !isLoggedIn" 
       class="dropdown-container"
     >
-      <div class="dropdown-btn">
-        <router-link
-          class="btn"
-          to="/login"
-        >
+      <router-link
+        class="btn"
+        to="/login"
+      >
+        <div class="dropdown-btn">
           Login
-        </router-link>
-      </div>
-      <div class="dropdown-btn">
-        <router-link
-          class="btn"
-          to="/register"
-        >
+        </div>
+      </router-link>
+      <router-link
+        class="btn"
+        to="/register"
+      >
+        <div class="dropdown-btn">
           Register
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </div>
     <div
       v-if="dropdown && isLoggedIn" 
       class="dropdown-container"
     >
-      <div class="dropdown-btn">
-        <router-link
-          class="btn"
-          to="/profile"
-        >
-          My profile
-        </router-link>
-      </div>
-      <div
-        v-if="isAdmin"
-        class="dropdown-btn"
+      <router-link
+        class="btn"
+        to="/profile"
       >
-        <router-link
-          class="btn"
-          to="/admin"
+        <div class="dropdown-btn">
+          My profile
+        </div>
+      </router-link>
+      <router-link
+        v-if="isAdmin"
+        class="btn"
+        to="/admin"
+      >
+        <div
+          class="dropdown-btn"
         >
           Admin
-        </router-link>
-      </div>
-      <div class="dropdown-btn">
-        <router-link
-          class="btn"
-          to="/"
-          @click="onLogout"
-        >
+        </div>
+      </router-link>
+      <router-link
+        class="btn"
+        to="/"
+        @click="onLogout"
+      >
+        <div class="dropdown-btn">
           Logout
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -140,6 +140,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.header {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: $primary-color;
+}
+
 img {
   height: auto;
   width: 1.8em;
@@ -158,7 +168,6 @@ img {
   height: auto;
   position: absolute;
   right: 0;
-  /* top: 4vh; */
   z-index: 1;
 }
 
@@ -166,7 +175,6 @@ img {
   font-family: $font-header;
   width: 100%;
   height: 4vh;
-  background-color: $primary-color;
   display: inline-flex;
   justify-content: space-between;
   padding: 2em 0 2em 0;
@@ -184,11 +192,12 @@ img {
 
 .dropdown-btn {
   margin: auto;
-  width: 100%;
   height: 10%;
   background-color: $primary-color;
   padding: 1em;
-  border-bottom: 4px solid black;
+  &:hover {
+    background-color: $grey-color;
+  }
 }
 
 .btn {

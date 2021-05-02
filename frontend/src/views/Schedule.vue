@@ -90,13 +90,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.schedule{
-  width: 100vw;
+.schedule {
   height: auto;
   min-height: 100vh;
-  margin-bottom: 10em;
+  margin: 5em 0;
 }
-.date{
+
+.date {
   margin: 1em;
   font-size: 2rem;
   font-family: $font-text;
@@ -105,42 +105,50 @@ export default {
   justify-content: center;
   display: flex;
 }
-.info{
+
+.info {
   width: 60%;
   margin: auto;
 }
-#title{
-  font-size: 5rem;
+
+#title {
+  font-size: 4rem;
   text-align: left;
   padding: 1em 0;
   font-family: $font-header;
 }
-.flex{
+
+.flex {
   display:flex;
   justify-content: center;
 }
-.sessions-header{
+
+.sessions-header {
   display: grid;
   grid-template-columns: 15vw 20vw 9vw;
   font-weight: bold;
   margin: 0.5em 0;
   font-size: 1.2rem;
 }
-.container{
+
+.container {
   width: 60%;
 }
-.prev-btn{
+
+.prev-btn {
   transform: rotate(180deg);
 }
-.date img{
+
+.date img {
   height: 1.2em;
   width: auto;
 }
-.date a{
+
+.date a {
   cursor: pointer;
   margin: 0 1em;
   
-  &:hover{
+  &:hover {
     opacity: 0.6;
   }
 }

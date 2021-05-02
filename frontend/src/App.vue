@@ -27,7 +27,7 @@ export default {
 }
 
 html {
-  background-color: black;
+  background-color: $background-color;
 }
 
 body{

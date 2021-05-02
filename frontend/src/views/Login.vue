@@ -114,6 +114,7 @@ export default {
 }
 
 .login {
+  margin: 6em 0;
   display: grid;
   grid-template-columns: auto;
 }
@@ -160,7 +161,7 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
-  background-color: black;
+  background-color: $background-color;
   color: white;
   box-sizing: border-box;
 

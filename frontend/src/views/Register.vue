@@ -144,7 +144,7 @@ export default {
   color: white;
   font-size: 40px;
   margin: auto;
-  margin-top: 1em;
+  margin-top: 3.5em;
   font-weight: bold;
 }
 
@@ -155,7 +155,7 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
-  background-color: black;
+  background-color: $background-color;
   color: white;
   box-sizing: border-box;
 

@@ -39,7 +39,7 @@ export default {
   width: 80vw;
   height: 50vh;
   margin: 10em auto;
-  background-color: rgb(0, 0, 0);
+  background-color: $primary-color;
   padding: 1em;
 }
 

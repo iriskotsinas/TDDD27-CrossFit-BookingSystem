@@ -180,7 +180,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button{
+
+button {
   border: none;
   outline: none;
   text-decoration: none;
@@ -196,31 +197,37 @@ button{
     opacity: 0.6;
   }
 }
-.details-btn{
+
+.details-btn {
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
 }
-.delete-btn{
+
+.delete-btn {
   color: rgb(0, 0, 0);
   background-color: rgb(255, 0, 0);
 }
-.details{
+
+.details {
   display: none;
   font-size: 0.8rem;
   padding: 1em 0;
   font-family: $font-text;
   font-weight: 300;
 }
-.details-bottom{
+
+.details-bottom {
   align-self: end;
 }
-.signup-btn{
+
+.signup-btn {
   height: 2em;
   width: 8em;
   color: rgb(0, 0, 0);
   font-weight: bold;
 }
-.session{
+
+.session {
   background-color: rgb(12, 12, 12);
   color: white;
   margin-bottom: 0.2em;
@@ -234,17 +241,21 @@ button{
   text-align: justify;
   justify-content: center;
 }
-.center{
+
+.center {
   margin: auto 0;
 }
-.session:hover .details{
+
+.session:hover .details {
   height: auto;
   display: block;
 }
-.signed{
+
+.signed {
   background: $secondary-color;
 }
-.unsigned{
+
+.unsigned {
   background: rgb(255, 255, 255);
 }
 </style>
