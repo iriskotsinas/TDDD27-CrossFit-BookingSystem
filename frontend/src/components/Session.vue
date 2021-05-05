@@ -147,6 +147,7 @@ export default {
           await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
           this.$emit('update-sessions');
+          await this.checkFull();
         }
       }catch(err){
         console.log(err);

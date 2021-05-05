@@ -33,6 +33,7 @@
               v-model="form.date"
               class="date-picker"
               color="red"
+              :min-date="new Date()"
               is-dark
               mode="dateTime"
               :attributes="attrs"
@@ -146,28 +147,39 @@ export default {
   },
   computed: {
     ...mapGetters(['getUserDetails', 'isLoggedIn', 'isAdmin']),
-    errorMessage() {
-      if (!this.form.date) return 'Date is required.';
-      return '';
-    },
   },
-  created(){
-    if(!this.isLoggedIn || !this.isAdmin) {
+  created() {
+    if (!this.isLoggedIn || !this.isAdmin) {
       this.$router.replace("/");
     }
     this.user = this.getUserDetails;
   },
   methods:{
-    onSubmit: async function(){
-      try{
-        this.form.date.setTime( this.form.date.getTime() - this.form.date.getTimezoneOffset()*60*1000 );
-        await axios.post('http://localhost:5000/api/booking', this.form, 
-        {
-          headers: { 'auth-token': localStorage.getItem('jwt')},
-        });
-      document.getElementById("form").reset();
-      }catch(err){
-        console.log(err);
+    errorMessage: function(now) {
+      if (!this.form.date) {
+        this.error_message = 'Date is required.';
+      } else if (this.form.date < now) {
+        this.error_message = 'Pick a later time';
+      } else {
+        this.error_message = '';
+      }
+    },
+    onSubmit: async function() {
+      const now = new Date();
+      if (!this.form.date || this.form.date < now) {
+        this.errorMessage(now);
+      } else {
+        this.error_message = '';
+        try {
+          this.form.date.setTime( this.form.date.getTime() - this.form.date.getTimezoneOffset()*60*1000 );
+          await axios.post('http://localhost:5000/api/booking', this.form, 
+          {
+            headers: { 'auth-token': localStorage.getItem('jwt')},
+          });
+          document.getElementById("form").reset();
+        } catch(err) {
+          console.log(err);
+        }
       }
     }
   }
