@@ -90,6 +90,7 @@ img {
   transform: translate(-50%, -50%);
   font-size: 80px;
   font-weight: bold;
+  font-family: $font-header;
 }
 
 </style>

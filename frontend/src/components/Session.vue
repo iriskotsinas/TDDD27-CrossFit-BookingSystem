@@ -32,7 +32,7 @@
         v-if="isLoggedIn && signedUp"
         class="signup-btn"
         :class="{'signed': signedUp, 'unsigned':!signedUp}"
-        @click="onCancel(session._id)"
+        @click="showCancelAlert=true"
       >
         Cancel
       </button>
@@ -57,7 +57,7 @@
       <button
         v-if="isLoggedIn && isAdmin"
         class="delete-btn"
-        @click="onDeleteSession(session._id)"
+        @click="showDeleteAlert=true"
       >
         Delete
       </button>
@@ -67,6 +67,18 @@
       :users="users"
       @show="showUsers=false"
     />
+    <Alert
+      v-if="showCancelAlert"
+      :action="'cancel'"
+      @show="showCancelAlert=false"
+      @cancel="showCancelAlert=false; onCancel(session._id)"
+    />
+    <Alert
+      v-if="showDeleteAlert"
+      :action="'delete'"
+      @show="showDeleteAlert=false"
+      @delete=" showDeleteAlert=false; onDelete(session._id)"
+    />
   </div>
 </template>
 
@@ -74,11 +86,12 @@
 import axios from 'axios';
 import { mapActions, mapGetters } from 'vuex';
 import Modal from '../components/Modal';
+import Alert from '../components/Alert';
 
 export default {
   name: "Session",
   components: {
-    Modal
+    Modal, Alert
   },
   props: {
     session: {
@@ -97,6 +110,8 @@ export default {
       isFull: false,
       users: {},
       showUsers: false,
+      showCancelAlert: false,
+      showDeleteAlert: false,
       endTime: ''
     };
   },
@@ -106,6 +121,9 @@ export default {
   async created(){
     await this.checkFull();
     await this.checkSigned();
+  },
+  updated(){
+ this.checkFull();
   },
   mounted(){
     const date = new Date(this.session.date);
@@ -122,6 +140,9 @@ export default {
           headers: { 'auth-token': localStorage.getItem('jwt')},
         });
         if(response.data.error) console.log(response.data.error);
+        if(response.data.full){
+          this.$emit('fetch');
+        }
         else{
           
           await this.saveSession(response.data.session);
@@ -171,7 +192,7 @@ export default {
         console.log(err);
       }
     },
-    onDeleteSession: async function(id){
+    onDelete: async function(id){
       try{
         const response = await axios.delete('http://localhost:5000/api/booking', {
           headers: { 'auth-token': localStorage.getItem('jwt')},

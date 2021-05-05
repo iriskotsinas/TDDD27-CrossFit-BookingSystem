@@ -59,6 +59,9 @@ router.post('/signup', auth, async (req: Request, res: Response) => {
   const userExists = await Session.findOne({ _id: id, users: { _id: userId } });
   if (userExists) return res.json({ error: 'User already signed up for that session.' });
   const user = await User.findOne({ _id: userId });
+
+  if (session.users.length >= session.maxSlots) return res.json({ full: true, error: 'Session already full' });
+
   user.sessions.push(id);
   session.users.push(userId);
   await session.save();
