@@ -5,6 +5,7 @@
   >
     <h1>Add new session</h1>
     <form
+      id="form"
       class="content-container"
       @submit.prevent="onSubmit"
     >
@@ -164,6 +165,7 @@ export default {
         {
           headers: { 'auth-token': localStorage.getItem('jwt')},
         });
+      document.getElementById("form").reset();
       }catch(err){
         console.log(err);
       }

@@ -1,9 +1,15 @@
 <template>
   <div
-    class="session"
+    :class="{'session': !displaydate, 'session-date':displaydate}"
   >
     <div class="center">
       {{ session.date.substring(11,16) + " - " + endTime.substring(11,16) }}
+    </div>
+    <div
+      v-if="displaydate"
+      class="center"
+    >
+      {{session.date.substring(0,10)}}
     </div>
     <div class="center">
       {{ session.activity }}
@@ -78,9 +84,13 @@ export default {
     session: {
       type: Object,
       default: null
+    },
+    displaydate: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['update-sessions'],
+  emits: ['update-sessions', 'fetch'],
   data() {
     return {
       signedUp: false,
@@ -90,13 +100,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoggedIn', 'getUserDetails', 'isAdmin', 'getSessionById'])
+    ...mapGetters(['isLoggedIn', 'getUserDetails', 'isAdmin'])
   },
   created(){
     const sessions = this.getUserDetails.sessions;
-    for(const s in sessions)
-      if(sessions[s] === this.session._id)
-        this.signedUp = true;
+      let res = false;
+      for(const s in sessions)
+        if(sessions[s] === this.session._id)
+          res = true;
+      this.signedUp = res;
   },
   mounted(){
     const date = new Date(this.session.date);
@@ -165,11 +177,13 @@ export default {
         const response = await axios.delete('http://localhost:5000/api/booking', {
           headers: { 'auth-token': localStorage.getItem('jwt')},
           data: {
-            id
+            id, userId: this.getUserDetails._id
           }});
         if(response.data.error) console.log(response.data.error);
         else{
-          
+          await this.saveUser(response.data.user);
+           this.$emit('fetch'); 
+           this.$emit('update-sessions');
         }
       }catch(err){
         console.log(err);
@@ -241,6 +255,20 @@ button {
   text-align: justify;
   justify-content: center;
 }
+.session-date {
+  background-color: rgb(12, 12, 12);
+  color: white;
+  margin-bottom: 0.2em;
+  padding: 1em 3em;
+  height: auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: grid;
+  gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr 1fr 7vw;
+  text-align: justify;
+  justify-content: center;
+}
 
 .center {
   margin: auto 0;
@@ -250,7 +278,10 @@ button {
   height: auto;
   display: block;
 }
-
+.session-date:hover .details {
+  height: auto;
+  display: block;
+}
 .signed {
   background: $secondary-color;
 }

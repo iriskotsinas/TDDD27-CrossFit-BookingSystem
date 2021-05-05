@@ -9,28 +9,60 @@
       <h2>Email: {{ user.email }}</h2>
       <h2>Role: {{ user.role }}</h2>
     </div>
+    <div
+      v-for="session in sessions"
+      :key="session.id"
+    >
+      <Session
+        :key="session.id"
+        :session="session"
+        :displaydate="true"
+        @update-sessions="getUserSessions"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
+import Session from '../components/Session';
 export default {
   name: "Profile",
+  components:{
+    Session
+  },
   data(){
     return {
-      user: this.getUserDetails
+      user: {},
+      sessions: [],
+      loading: true
     };
   },
   computed: {
-    ...mapGetters(['getUserDetails', 'isLoggedIn'])
+    ...mapGetters(['getUserDetails', 'isLoggedIn', 'getAllSessions'])
   },
   created(){
     if(!this.isLoggedIn){
       this.$router.replace("/");
     }
-
-    this.user = this.getUserDetails;
-    console.log(this.getUserDetails);
+    this.getUserSessions();
+  },
+  methods:{
+    ...mapActions(['fetchAll']),
+    getUserSessions: async function(){
+        this.sessions = [];
+        await this.fetchAll();
+        this.user = this.getUserDetails;
+        const allSessions = this.getAllSessions;
+        const foundSessions = [];
+        for(const id in this.user.sessions){
+          console.log(this.user.sessions[id]);
+          const index = allSessions.findIndex(item => item._id === this.user.sessions[id]);
+          foundSessions[id] = allSessions[index];
+        this.sessions = foundSessions;
+    }
+  }
   }
 };
 </script>

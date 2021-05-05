@@ -13,6 +13,10 @@ router.get('/booking', async (req: Request, res: Response) => {
   const session = await Session.find({ date: { $gte: date, $lt: end } }).sort({ date: 'ascending' });
   return res.status(200).send(session);
 });
+router.get('/sessions', async (req: Request, res: Response) => {
+  const sessions = await Session.find({}).sort({ date: 'ascending' });
+  return res.status(200).json({ sessions });
+});
 
 router.get('/users', auth, async (req: Request, res: Response) => {
   const { id } = req.query;
@@ -37,16 +41,16 @@ router.post('/booking', auth, async (req: Request, res: Response) => {
 });
 
 router.delete('/booking', auth, async (req: Request, res: Response) => {
-  const { id } = req.body;
+  const { id, userId } = req.body;
   const users = await User.find({ sessions: { _id: id } });
 
   Object.keys(users).forEach(async (user) => {
     users[user].sessions.pull(id);
     await users[user].save();
   });
-
   await Session.deleteOne({ _id: id });
-  return res.status(201).send('Session deleted');
+  const user = await User.findOne({ _id: userId });
+  return res.status(201).json({ user });
 });
 
 router.post('/signup', auth, async (req: Request, res: Response) => {

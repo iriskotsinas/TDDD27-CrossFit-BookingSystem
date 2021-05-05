@@ -35,9 +35,11 @@
           :key="session.id"
         >
           <Session
-            v-if="!loading && true"
+            v-if="!loading"
+            :key="session.id"
             :session="session"
             @update-sessions="onUpdate"
+            @fetch="onFetch"
           />
         </div>
       </div>

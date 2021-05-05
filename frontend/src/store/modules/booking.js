@@ -2,11 +2,13 @@ import axios from 'axios';
 
 
 const state ={
-  sessions:[]
+  sessions:[],
+  allSessions:[]
 };
 const getters = {
   getSessions: state => state.sessions,
-  getSessionById: async (state, id) => {
+  getAllSessions: state => state.allSessions,
+  getSessionById: (state, id) => {
     const index = state.sessions.findIndex(item => item._id === id);
     return state.sessions[index];
   }
@@ -18,8 +20,18 @@ const actions = {
       params: {
         date
       }});
-      console.log(response.data);
       commit("saveSessions", response.data);
+    } catch (error) {
+      console.log("ERROR");
+    }
+  },
+  async saveSession({commit}, session) {
+    commit("updateSession", session);
+  },
+  async fetchAll({commit}, date) {
+    try {
+      const response = await axios.get('http://localhost:5000/api/sessions');
+      commit("saveAllSessions", response.data);
     } catch (error) {
       console.log("ERROR");
     }
@@ -30,6 +42,7 @@ const actions = {
 };
 const mutations = {
   saveSessions: (state, response) => (state.sessions = response),
+  saveAllSessions: (state, response) => (state.allSessions = response.sessions),
   updateSession: (state, session) => {
     const index = state.sessions.findIndex(item => item._id === session._id);
     state.sessions[index] = session;
