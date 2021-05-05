@@ -36,7 +36,6 @@ export default {
     return {
       user: {},
       sessions: [],
-      loading: true
     };
   },
   computed: {
@@ -57,12 +56,12 @@ export default {
         const allSessions = this.getAllSessions;
         const foundSessions = [];
         for(const id in this.user.sessions){
-          console.log(this.user.sessions[id]);
           const index = allSessions.findIndex(item => item._id === this.user.sessions[id]);
-          foundSessions[id] = allSessions[index];
+          if(index > -1)
+            foundSessions.push(allSessions[index]);
+        }
         this.sessions = foundSessions;
     }
-  }
   }
 };
 </script>

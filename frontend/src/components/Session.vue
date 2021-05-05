@@ -9,7 +9,7 @@
       v-if="displaydate"
       class="center"
     >
-      {{session.date.substring(0,10)}}
+      {{ session.date.substring(0,10) }}
     </div>
     <div class="center">
       {{ session.activity }}
@@ -23,7 +23,7 @@
       <button
         v-if="isLoggedIn && !signedUp"
         class="signup-btn"
-        :class="{'signed': signedUp, 'unsigned':!signedUp}"
+        :class="{'signed': signedUp, 'unsigned':!signedUp, 'btn-disabled': isFull && !signedUp}"
         @click="onSignup(session._id)"
       >
         Sign up
@@ -94,6 +94,7 @@ export default {
   data() {
     return {
       signedUp: false,
+      isFull: false,
       users: {},
       showUsers: false,
       endTime: ''
@@ -102,13 +103,9 @@ export default {
   computed: {
     ...mapGetters(['isLoggedIn', 'getUserDetails', 'isAdmin'])
   },
-  created(){
-    const sessions = this.getUserDetails.sessions;
-      let res = false;
-      for(const s in sessions)
-        if(sessions[s] === this.session._id)
-          res = true;
-      this.signedUp = res;
+  async created(){
+    await this.checkFull();
+    await this.checkSigned();
   },
   mounted(){
     const date = new Date(this.session.date);
@@ -126,9 +123,10 @@ export default {
         });
         if(response.data.error) console.log(response.data.error);
         else{
-          this.signedUp = true;
+          
           await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
+          this.signedUp = true;
           this.$emit('update-sessions');
         }
       }catch(err){
@@ -188,6 +186,20 @@ export default {
       }catch(err){
         console.log(err);
       }
+    },
+    checkFull: function(){
+      this.isFull = (this.session.users.length >= this.session.maxSlots) ? true : false;
+    },
+    checkSigned: async function(){
+      const sessions = this.getUserDetails.sessions;
+      let res = false;
+      for(const s in sessions)
+      {
+        if(sessions[s] === this.session._id){
+          res = true;
+        }
+      }
+      this.signedUp = res;
     }
   }
 };
@@ -288,5 +300,9 @@ button {
 
 .unsigned {
   background: rgb(255, 255, 255);
+}
+.btn-disabled{
+  background: rgb(41, 41, 41);
+  pointer-events: none;
 }
 </style>
