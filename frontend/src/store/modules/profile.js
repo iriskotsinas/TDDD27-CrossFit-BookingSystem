@@ -16,7 +16,7 @@ const getters = {
 const actions = {
   async login({ commit }, form) {
     try {
-      const response = await axios.post('http://localhost:5000/api/login', form);
+      const response = await axios.post('http://localhost:5000/login', form);
     if (response.data.status) {
       const token = response.data.token;
       if(token){
@@ -35,7 +35,7 @@ const actions = {
   },
   async register({ commit }, form) {
     try {
-      const response = await axios.post('http://localhost:5000/api/register', form);
+      const response = await axios.post('http://localhost:5000/register', form);
       const token = response.data.token;
       if(token){
         localStorage.setItem("jwt", token);

@@ -149,7 +149,7 @@ export default {
     },
     onSignup: async function(id){
       try{
-        const response = await axios.post('http://localhost:5000/api/signup', {
+        const response = await axios.post('http://localhost:5000/signup', {
           userId: this.getUserDetails._id, 
           id
         }, {
@@ -171,7 +171,7 @@ export default {
     },
     onCancel: async function(id){
       try{
-        const response = await axios.delete('http://localhost:5000/api/signup', {
+        const response = await axios.delete('http://localhost:5000/signup', {
           headers: { 'auth-token': localStorage.getItem('jwt')},
           data: {
           userId: this.getUserDetails._id, 
@@ -192,7 +192,7 @@ export default {
     onShowUsers: async function(id){
       try{
         this.showUsers = true;
-        const response = await axios.get('http://localhost:5000/api/users', {
+        const response = await axios.get('http://localhost:5000/users', {
           headers: { 'auth-token': localStorage.getItem('jwt')},
           params: {
             id
@@ -208,7 +208,7 @@ export default {
     },
     onDelete: async function(id){
       try{
-        const response = await axios.delete('http://localhost:5000/api/booking', {
+        const response = await axios.delete('http://localhost:5000/session', {
           headers: { 'auth-token': localStorage.getItem('jwt')},
           data: {
             id, userId: this.getUserDetails._id

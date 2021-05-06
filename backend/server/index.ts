@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import booking from './routes/api/booking';
-import register from './routes/api/register';
-import login from './routes/api/login';
+import session from './routes/session';
+import register from './routes/register';
+import login from './routes/login';
 
 require('dotenv').config();
 
@@ -11,9 +12,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use('/api', booking);
-app.use('/api', register);
-app.use('/api', login);
+app.use('/', session);
+app.use('/', register);
+app.use('/', login);
 
 const port = process.env.PORT || 5000;
 

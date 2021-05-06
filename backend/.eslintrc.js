@@ -30,6 +30,7 @@ module.exports = {
     'linebreak-style': 0,
     'no-underscore-dangle': 0,
     'eslint-disable-next-line': 0,
+    'import/prefer-default-export': 0,
   },
   settings: {
     'import/resolver': {

@@ -1,12 +1,10 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../../models/user';
-import { registerValidation } from '../../validation';
+import { User } from '../models/user';
+import { registerValidation } from '../validation';
 
-const router = express.Router();
-
-router.post('/register', async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response) => {
   const { error } = registerValidation(req.body);
   if (error) return res.json({ status: false, error: error.details[0].message });
 
@@ -41,12 +39,14 @@ router.post('/register', async (req: Request, res: Response) => {
   } catch (err) {
     return res.status(400).send(err);
   }
-});
-router.post('/admin', async (req: Request, res: Response) => {
+};
+
+export const assignAdmin = async (req: Request, res: Response) => {
   const { userId } = req.body;
   const user = await User.findOne({ _id: userId });
   user.role = 'admin';
+
   await user.save();
+
   return res.status(201).json({ user });
-});
-export default router;
+};

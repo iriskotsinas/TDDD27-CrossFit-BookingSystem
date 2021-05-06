@@ -23,5 +23,4 @@ const auth = (expressRequest: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export { auth };

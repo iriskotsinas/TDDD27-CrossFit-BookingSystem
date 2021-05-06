@@ -172,7 +172,7 @@ export default {
         this.error_message = '';
         try {
           this.form.date.setTime( this.form.date.getTime() - this.form.date.getTimezoneOffset()*60*1000 );
-          await axios.post('http://localhost:5000/api/booking', this.form, 
+          await axios.post('http://localhost:5000/session', this.form, 
           {
             headers: { 'auth-token': localStorage.getItem('jwt')},
           });

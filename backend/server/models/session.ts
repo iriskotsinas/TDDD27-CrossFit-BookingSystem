@@ -35,5 +35,4 @@ const sessionSchema = new mongoose.Schema({
 
 const Session = mongoose.model('Session', sessionSchema);
 
-// eslint-disable-next-line import/prefer-default-export
 export { Session };

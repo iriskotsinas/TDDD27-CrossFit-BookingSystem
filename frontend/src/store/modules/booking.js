@@ -16,7 +16,7 @@ const getters = {
 const actions = {
   async fetch({commit}, date) {
     try {
-      const response = await axios.get('http://localhost:5000/api/booking',{ 
+      const response = await axios.get('http://localhost:5000/session',{ 
       params: {
         date
       }});
@@ -30,7 +30,7 @@ const actions = {
   },
   async fetchAll({commit}, date) {
     try {
-      const response = await axios.get('http://localhost:5000/api/sessions');
+      const response = await axios.get('http://localhost:5000/sessions');
       commit("saveAllSessions", response.data);
     } catch (error) {
       console.log("ERROR");

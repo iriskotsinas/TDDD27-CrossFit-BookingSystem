@@ -39,5 +39,4 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// eslint-disable-next-line import/prefer-default-export
 export { User };
