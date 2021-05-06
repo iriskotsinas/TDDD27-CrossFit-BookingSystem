@@ -1,85 +1,97 @@
 <template>
-  <div
-    :class="{'session': !displaydate, 'session-date':displaydate}"
+  <button
+    class="collapsible"
+    @click="onExpand"
   >
-    <div class="center">
-      {{ session.date.substring(11,16) + " - " + endTime.substring(11,16) }}
-    </div>
-    <div
-      v-if="displaydate"
-      class="center"
-    >
-      {{ session.date.substring(0,10) }}
-    </div>
-    <div class="center">
-      {{ session.activity }}
-    </div>
-    <div class="center">
-      {{ session.users.length + '/' + session.maxSlots }}
-    </div>
-    <div
-      class="signup center"
-    >  
-      <button
-        v-if="isLoggedIn && !signedUp"
-        class="signup-btn"
-        :class="{'signed': signedUp, 'unsigned':!signedUp, 'btn-disabled': isFull && !signedUp}"
-        @click="onSignup(session._id)"
+    <div class="content">
+      <section
+        :class="{'session': !displaydate, 'session-date':displaydate}"
       >
-        Sign up
-      </button>
-      <button
-        v-if="isLoggedIn && signedUp"
-        class="signup-btn"
-        :class="{'signed': signedUp, 'unsigned':!signedUp}"
-        @click="showCancelAlert=true"
-      >
-        Cancel
-      </button>
+        <div class="center">
+          {{ session.date.substring(11,16) + " - " + endTime.substring(11,16) }}
+        </div>
+        <div
+          v-if="displaydate"
+          class="center"
+        >
+          {{ session.date.substring(0,10) }}
+        </div>
+        <div class="center">
+          {{ session.activity }}
+        </div>
+        <div class="center">
+          {{ session.users.length + '/' + session.maxSlots }}
+        </div>
+        <div
+          class="signup center"
+        >  
+          <button
+            v-if="isLoggedIn && !signedUp"
+            class="signup-btn"
+            :class="{'signed': signedUp, 'unsigned':!signedUp, 'btn-disabled': isFull && !signedUp}"
+            @click="onSignup(session._id)"
+          >
+            Sign up
+          </button>
+          <button
+            v-if="isLoggedIn && signedUp"
+            class="signup-btn"
+            :class="{'signed': signedUp, 'unsigned':!signedUp}"
+            @click="showCancelAlert=true"
+          >
+            Cancel
+          </button>
+        </div>
+      </section>
+      <section
+        :id="session._id"
+        class="details"
+      > 
+        <div>
+          <div>{{ session.description }}</div>
+        </div>
+        <div>
+          <div>Instructor: {{ session.instructor }}</div>
+          <div>Session length: {{ session.length }}min</div>
+        </div>
+        <div class=" details-bottom">
+          <button
+            v-if="isLoggedIn && isAdmin"
+            class="details-btn"
+            @click="onShowUsers(session._id)"
+          >
+            Show Users
+          </button>
+        </div>
+        <div class=" details-bottom">
+          <button
+            v-if="isLoggedIn && isAdmin"
+            class="delete-btn"
+            @click="showDeleteAlert=true"
+          >
+            Delete
+          </button>
+        </div>
+      </section>
     </div>
-    <div class="details">
-      <div>{{ session.description }}</div>
-    </div>
-    <div class="details">
-      <div>Instructor: {{ session.instructor }}</div>
-      <div>Session length: {{ session.length }}min</div>
-    </div>
-    <div class="details details-bottom">
-      <button
-        v-if="isLoggedIn && isAdmin"
-        class="details-btn"
-        @click="onShowUsers(session._id)"
-      >
-        Show Users
-      </button>
-    </div>
-    <div class="details details-bottom">
-      <button
-        v-if="isLoggedIn && isAdmin"
-        class="delete-btn"
-        @click="showDeleteAlert=true"
-      >
-        Delete
-      </button>
-    </div>
-    <Modal
-      v-if="showUsers"
-      :users="users"
-      @show="showUsers=false"
-    />
-    <Alert
-      v-if="showCancelAlert"
-      :action="'cancel'"
-      @show="showCancelAlert=false"
-      @cancel="showCancelAlert=false; onCancel(session._id)"
-    />
-    <Alert
-      v-if="showDeleteAlert"
-      :action="'delete'"
-      @show="showDeleteAlert=false"
-      @delete=" showDeleteAlert=false; onDelete(session._id)"
-    />
-  </div>
+  </button>
+  <Modal
+    v-if="showUsers"
+    :users="users"
+    @show="showUsers=false"
+  />
+  <Alert
+    v-if="showCancelAlert"
+    :action="'cancel'"
+    @show="showCancelAlert=false"
+    @cancel="showCancelAlert=false; onCancel(session._id)"
+  />
+  <Alert
+    v-if="showDeleteAlert"
+    :action="'delete'"
+    @show="showDeleteAlert=false"
+    @delete=" showDeleteAlert=false; onDelete(session._id)"
+  />
 </template>
 
 <script>
@@ -106,13 +118,13 @@ export default {
   emits: ['update-sessions', 'fetch'],
   data() {
     return {
+      users: {},
+      endTime: '',
       signedUp: false,
       isFull: false,
-      users: {},
       showUsers: false,
       showCancelAlert: false,
       showDeleteAlert: false,
-      endTime: ''
     };
   },
   computed: {
@@ -123,7 +135,7 @@ export default {
     await this.checkSigned();
   },
   updated(){
- this.checkFull();
+    this.checkFull();
   },
   mounted(){
     const date = new Date(this.session.date);
@@ -131,6 +143,10 @@ export default {
   },
   methods:{
     ...mapActions(['saveUser', 'saveSession']),
+    onExpand: function(){
+      const details = document.getElementById(this.session._id);
+      details.style.display = details.style.display === "grid" ? "none" : "grid";
+    },
     onSignup: async function(id){
       try{
         const response = await axios.post('http://localhost:5000/api/signup', {
@@ -144,7 +160,6 @@ export default {
           this.$emit('fetch');
         }
         else{
-          
           await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
           this.signedUp = true;
@@ -164,11 +179,11 @@ export default {
         }});
         if(response.data.error) console.log(response.data.error);
         else{
-          this.signedUp = false;
           await this.saveSession(response.data.session);
           await this.saveUser(response.data.user);
+          this.signedUp = false;
           this.$emit('update-sessions');
-          await this.checkFull();
+          this.checkFull();
         }
       }catch(err){
         console.log(err);
@@ -186,7 +201,6 @@ export default {
         if (response.data.error) console.log(response.data.error);
         else {
           this.users = response.data.users;
-          console.log(this.users[0].firstname);
         }
       } catch (err) {
         console.log(err);
@@ -202,8 +216,8 @@ export default {
         if(response.data.error) console.log(response.data.error);
         else{
           await this.saveUser(response.data.user);
-           this.$emit('fetch'); 
-           this.$emit('update-sessions');
+          this.$emit('fetch'); 
+          this.$emit('update-sessions');
         }
       }catch(err){
         console.log(err);
@@ -240,82 +254,80 @@ button {
   font-weight: bold;
   height: 2em;
   width: 8em;
-  
   &:hover{
     opacity: 0.6;
   }
+}
+.collapsible{
+  cursor: default;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin-bottom: 0.2em;
 }
 
 .details-btn {
   color: rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
 }
-
 .delete-btn {
   color: rgb(0, 0, 0);
   background-color: rgb(255, 0, 0);
 }
-
-.details {
-  display: none;
-  font-size: 0.8rem;
-  padding: 1em 0;
-  font-family: $font-text;
-  font-weight: 300;
-}
-
 .details-bottom {
   align-self: end;
 }
-
 .signup-btn {
   height: 2em;
   width: 8em;
   color: rgb(0, 0, 0);
   font-weight: bold;
 }
-
-.session {
-  background-color: rgb(12, 12, 12);
-  color: white;
-  margin-bottom: 0.2em;
+.content{
   padding: 1em 3em;
   height: auto;
-  font-size: 1.3rem;
-  font-weight: bold;
-  display: grid;
-  gap: 1em;
+  background-color: rgb(0, 0, 0);
+}
+.details {
+  color: $text-color-standard;
+  font-size: 0.8rem;
+  padding: 1em;
+  font-family: $font-text;
+  font-weight: 300;
+  display: none;
   grid-template-columns: 1fr 15vw 10vw 7vw;
   text-align: justify;
-  justify-content: center;
+}
+.session {
+  padding: 1em;
+  color: $text-color-standard;
+  font-size: 1.3rem;
+  display: grid;
+  grid-template-columns: 1fr 15vw 10vw 7vw;
+  text-align: justify;
 }
 .session-date {
-  background-color: rgb(12, 12, 12);
   color: white;
-  margin-bottom: 0.2em;
   padding: 1em 3em;
   height: auto;
   font-size: 1.3rem;
-  font-weight: bold;
   display: grid;
-  gap: 1em;
   grid-template-columns: 1fr 1fr 1fr 1fr 7vw;
   text-align: justify;
   justify-content: center;
 }
-
 .center {
   margin: auto 0;
 }
 
-.session:hover .details {
-  height: auto;
-  display: block;
-}
-.session-date:hover .details {
-  height: auto;
-  display: block;
-}
+// .session:hover .details {
+//   height: auto;
+//   display: block;
+// }
+// .session-date:hover .details {
+//   height: auto;
+//   display: block;
+// }
 .signed {
   background: $secondary-color;
 }

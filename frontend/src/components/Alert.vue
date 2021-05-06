@@ -8,7 +8,7 @@
     <button 
       @click="onAction"
     >
-      {{action.toUpperCase()}}
+      {{ action.toUpperCase() }}
     </button>
   </div>
 </template>
@@ -25,10 +25,7 @@ export default {
   emits: ['cancel', 'show', 'delete'],
   methods: {
     onAction: function(){
-      if(this.action === 'cancel')
-        this.$emit('cancel');
-      if(this.action === 'delete')
-        this.$emit('delete');
+        this.$emit(this.action);
     }
   }
 };
