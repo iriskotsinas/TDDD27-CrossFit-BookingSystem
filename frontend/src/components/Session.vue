@@ -48,7 +48,7 @@
         class="details"
       > 
         <div>
-          <div>{{ session.description }}</div>
+          <div class="description">{{ session.description }}</div>
         </div>
         <div>
           <div>Instructor: {{ session.instructor }}</div>
@@ -320,18 +320,12 @@ button {
   margin: auto 0;
 }
 
-// .session:hover .details {
-//   height: auto;
-//   display: block;
-// }
-// .session-date:hover .details {
-//   height: auto;
-//   display: block;
-// }
+.description{
+  padding: 0 2em 0 0;
+}
 .signed {
   background: $secondary-color;
 }
-
 .unsigned {
   background: rgb(255, 255, 255);
 }
