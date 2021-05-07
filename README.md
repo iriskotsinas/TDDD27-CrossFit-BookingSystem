@@ -1,5 +1,8 @@
 # TDDD27 2021 Project
 
+## Mid Course Screencast
+[Press here to see our Mid Course Screencast](https://youtu.be/HxZI2T2IaQQ)
+
 ## Functional specification
 An application for bookings of training sessions, more specifically CrossFit. 
 
