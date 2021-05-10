@@ -23,9 +23,18 @@
         </a>
       </div>
       <div class="sessions-header">
-        <div>Time</div>
-        <div>Activity</div>
-        <div>Slots</div>
+        <div class="item">
+          Time
+        </div>
+        <div class="item">
+          Activity
+        </div>
+        <div class="item">
+          Slots
+        </div>
+        <div class="item">
+          {{ ' ' }}
+        </div>
       </div>
     </div>
     <div class="flex">
@@ -109,7 +118,7 @@ export default {
 }
 
 .info {
-  width: 60%;
+  width: 80%;
   margin: auto;
 }
 
@@ -126,11 +135,18 @@ export default {
 }
 
 .sessions-header {
-  display: grid;
-  grid-template-columns: 15vw 20vw 9vw;
+  display: flex;
+  /* width: 850px; */
+  /* grid-template-columns: 15vw 20vw 9vw; */
+  /* justify-content: left; */
+  text-align: left;
   font-weight: bold;
-  margin: 0.5em 0;
+  margin: 0.5em 3.7em;
   font-size: 1.2rem;
+}
+
+.item {
+  width: 25%;
 }
 
 .container {

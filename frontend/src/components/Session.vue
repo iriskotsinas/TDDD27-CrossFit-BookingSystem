@@ -258,6 +258,7 @@ button {
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  float: right;
 
   &:after {
     content: '';
@@ -393,7 +394,6 @@ button {
   font-weight: 300;
   display: flex;
   border-top: 1px solid grey;
-  /* grid-template-columns: 1fr 15vw 10vw 7vw; */
   text-align: justify;
 }
 
@@ -401,24 +401,24 @@ button {
   padding: 1em;
   color: $text-color-standard;
   font-size: 1.3rem;
-  display: grid;
-  grid-template-columns: 1fr 15vw 10vw 7vw;
+  display: flex;
+  justify-content: space-between;
   text-align: justify;
 }
 
 .session-date {
   color: white;
-  padding: 1em 3em;
+  padding: 1em 0;
   height: auto;
   font-size: 1.3rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 7vw;
-  text-align: justify;
+  display: flex;
+  justify-content: space-between;
   justify-content: center;
 }
 
 .center {
   margin: auto 0;
+  width: 25%;
 }
 
 .description {
