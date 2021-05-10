@@ -53,7 +53,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "Schedule",
   components: {Session},
-  data(){
+  data() {
     return  {
       sessions:{},
       date: new Date(Date.now()),
@@ -134,7 +134,7 @@ export default {
 }
 
 .container {
-  width: 60%;
+  width: 80%;
 }
 
 .prev-btn {

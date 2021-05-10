@@ -41,6 +41,7 @@ export default {
   transform: translate(-50%, -50%);
   background: white;
   color: black;
+  z-index: 1000;
 }
 
 .container {
