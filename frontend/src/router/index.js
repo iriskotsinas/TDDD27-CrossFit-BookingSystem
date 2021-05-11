@@ -5,6 +5,8 @@ import Register from "../views/Register.vue";
 import Profile from "../views/Profile.vue";
 import Schedule from "../views/Schedule.vue";
 import Admin from "../views/Admin.vue";
+import Contact from "../views/Contact.vue";
+import About from "../views/About.vue";
 
 const routes = [
   {
@@ -36,6 +38,16 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About,
   }
 ];
 

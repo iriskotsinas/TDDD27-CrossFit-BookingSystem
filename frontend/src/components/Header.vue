@@ -25,13 +25,13 @@
         </router-link>
         <router-link
           class="nav-btn btn"
-          to="/login"
+          to="/about"
         >
-          About us
+          About
         </router-link>
         <router-link
           class="nav-btn btn"
-          to="/login"
+          to="/contact"
         >
           Contact
         </router-link>
