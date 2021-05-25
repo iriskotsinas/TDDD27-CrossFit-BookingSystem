@@ -18,7 +18,7 @@ app.use('/', login);
 
 const port = process.env.PORT || 5000;
 
-const url = 'mongodb+srv://admin:wG7AZEH@tddd27.n1isl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const url = process.env.DB_URL || '';
 
 mongoose.connect(url, {
   useCreateIndex: true,
@@ -33,3 +33,5 @@ db.once('open', () => console.log('Connected to database'));
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
+
+export default app;
