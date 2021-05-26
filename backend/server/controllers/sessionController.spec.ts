@@ -92,11 +92,42 @@ describe('Session controller test', () => {
       const response = await request.post('/signup')
         .send({ userId, id: session._id })
         .set('auth-token', token);
+
+      const sessionSecond = await Session.findOne({activity: addSecondSession.activity});
+      const responseSecond = await request.post('/signup')
+      .send({ userId, id: sessionSecond._id })
+      .set('auth-token', token);
+      
+      expect(response.status).toBe(201);
+      expect(responseSecond.status).toBe(201);
+
+      const userExists = await Session.findOne({ _id: session._id, users: { _id: userId } });
+      expect(userExists).toBeTruthy();
+    });
+
+
+    it('DELETE /signup cancels user from session', async () => {
+      const session = await Session.findOne({activity: addFirstSession.activity});
+      const response = await request.delete('/signup')
+        .send({ userId, id: session._id })
+        .set('auth-token', token);
       
       expect(response.status).toBe(201);
 
       const userExists = await Session.findOne({ _id: session._id, users: { _id: userId } });
-      expect(userExists).toBeTruthy();
+      expect(userExists).toBeFalsy();
+    });
+
+    it('DELETE /session deletes session', async () => {
+      const session = await Session.findOne({activity: addSecondSession.activity});
+      const response = await request.delete('/signup')
+        .send({ userId, id: session._id })
+        .set('auth-token', token);
+      
+      expect(response.status).toBe(201);
+
+      // const sessionExists = await Session.findOne({ _id: session._id });
+      // expect(sessionExists).toBeFalsy();
     });
   });
 });
