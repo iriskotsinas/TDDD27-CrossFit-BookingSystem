@@ -115,8 +115,8 @@ describe('Session controller test', () => {
     it('DELETE /session deletes session', async () => {
       const session = await Session.findOne({activity: addSecondSession.activity});
 
-      const userExistsInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
-      expect(userExistsInSession).toBeTruthy();
+      const userInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
+      expect(userInSession).toBeTruthy();
     
       const response = await request.delete('/session')
         .send({ userId, id: session._id })
@@ -127,8 +127,8 @@ describe('Session controller test', () => {
       const sessionExists = await Session.findOne({ _id: session._id });
       expect(sessionExists).toBeFalsy();
 
-      const userNotExistsInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
-      expect(userNotExistsInSession).toBeFalsy();
+      const userExistsInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
+      expect(userExistsInSession).toBeFalsy();
     });
   });
 
