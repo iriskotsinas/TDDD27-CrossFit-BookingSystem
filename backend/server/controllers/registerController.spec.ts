@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 import { User } from '../models/user';
-import app from '../index';
+import app from '../app';
 
 const userDetails = {
   firstname: 'Iris',
@@ -63,5 +63,9 @@ describe('Register controller test', () => {
       const user = await User.findOne({ firstname: wrongUserDetails.firstname });
       expect(user).toBe(null);
     });
+  });
+
+  afterAll(async () => {
+    await mongoose.disconnect();
   });
 });

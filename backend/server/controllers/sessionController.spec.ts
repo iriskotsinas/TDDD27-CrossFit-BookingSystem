@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import supertest from 'supertest';
 import { Session } from '../models/session';
 import { User } from '../models/user';
-import app from '../index';
+import app from '../app';
 
 const addFirstSession = {
   activity: 'CrossFit',
@@ -52,12 +52,6 @@ describe('Session controller test', () => {
       .send(userDetails);    
     token = response.body.token;
     userId = response.body.user._id;
-  });
-
-  afterAll(async () => {
-    jest.clearAllMocks();
-    await Session.deleteMany();
-    await User.deleteMany();
   });
 
   describe('Session test with basic endpoints', () => {
@@ -120,14 +114,28 @@ describe('Session controller test', () => {
 
     it('DELETE /session deletes session', async () => {
       const session = await Session.findOne({activity: addSecondSession.activity});
-      const response = await request.delete('/signup')
+
+      const userExistsInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
+      expect(userExistsInSession).toBeTruthy();
+    
+      const response = await request.delete('/session')
         .send({ userId, id: session._id })
         .set('auth-token', token);
       
       expect(response.status).toBe(201);
 
-      // const sessionExists = await Session.findOne({ _id: session._id });
-      // expect(sessionExists).toBeFalsy();
+      const sessionExists = await Session.findOne({ _id: session._id });
+      expect(sessionExists).toBeFalsy();
+
+      const userNotExistsInSession = await User.findOne({ _id: userId, sessions: { _id: session._id } });
+      expect(userNotExistsInSession).toBeFalsy();
     });
+  });
+
+  afterAll(async () => {
+    jest.clearAllMocks();
+    await Session.deleteMany();
+    await User.deleteMany();
+    await mongoose.disconnect();
   });
 });
