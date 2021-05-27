@@ -9,32 +9,24 @@
         WE ARE POWER
       </div>
     </div>
-    <div class="box">
-      <div class="text-header">
-        ABOUT US!
-      </div>
-      <div class="content-container">
-        <div class="text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-        </div>
-        <div class="image" />
-      </div>
-    </div>
+    <About />
+    <Contact />
   </div>
 </template>
 
 <script>
+import About from '../components/About';
+import Contact from '../components/Contact';
 export default {
   name: "Home",
+  components:{
+    About,
+    Contact
+  }
 };
 </script>
 
 <style lang= "scss" scoped>
-.container {
-  height: 200vh;
-  margin: 0;
-}
-
 .box {
   width: 80vw;
   height: 50vh;
@@ -70,18 +62,17 @@ export default {
 }
 
 img {
-  height: 110vh;
+  height: 100vh;
   width: 100%;
   position: relative;
   background-color: gray;
 }
 
-/* .poster {
+.poster {
   height: 100vh;
   width: 100%;
-  position: relative;
   background-color: gray;
-} */
+}
 
 .center-text {
   position: absolute;

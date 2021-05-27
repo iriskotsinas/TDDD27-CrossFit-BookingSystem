@@ -1,5 +1,6 @@
 <template>
   <div id="footer">
+    <div class="fade" />
     <div class="time-container">
       <div class="time">
         <h3>Manned hours</h3>
@@ -30,8 +31,10 @@ name: 'Footer',
 <style lang="scss" scoped>
 #footer{
   height: auto;
-  padding-top: 4em;
+  margin-top: 10em;
+  padding-top: 3em;
   color: $text-color-weak;
+  background: rgb(27, 27, 27);
 }
 .time-container{
   display: flex;

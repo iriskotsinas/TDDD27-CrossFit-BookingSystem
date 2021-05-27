@@ -23,18 +23,18 @@
         >
           Schedule
         </router-link>
-        <router-link
+        <a
           class="nav-btn btn"
-          to="/about"
+          href="/#about"
         >
           About
-        </router-link>
-        <router-link
+        </a>
+        <a
           class="nav-btn btn"
-          to="/contact"
+          href="/#contact"
         >
           Contact
-        </router-link>
+        </a>
         <router-link
           v-if="isLoggedIn"
           to="/profile"
