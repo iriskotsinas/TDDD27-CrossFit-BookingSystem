@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang= "scss" scoped>
-#contact{
+#contact {
   margin: auto;
   max-width: 70em;
   text-align: left;
@@ -70,27 +70,31 @@ export default {
   display: flex;
   justify-content: space-around;
 }
-.col{
+
+.col {
   width: 100%;
   padding: 3em;
-  h2{
+  h2 {
     font-size: 3rem;
   }
   h3{
     font-size: 2rem;
   }
 }
-.form-container{
+
+.form-container {
   display: grid;
   width: 50%;
 }
-.image{
+
+.image {
   margin-top: 4vh;
   position: relative;
   height: 20vh;
   width: 100vw;
 }
-.contact{
+
+.contact {
   font-size: 2rem;
   font-family: $font-header;
   margin-top: 2em;
@@ -125,7 +129,6 @@ input[type=text], input[type=password] {
   }
 }
 
-/* Set a style for all buttons */
 button {
   background-color: $secondary-color;
   color: white;
@@ -140,8 +143,6 @@ button {
   }
 }
 
-
-/* Add a hover effect for buttons */
 button:hover {
   opacity: 0.8;
 }

@@ -29,27 +29,30 @@ name: 'Footer',
 </script>
 
 <style lang="scss" scoped>
-#footer{
+#footer {
   height: auto;
   margin-top: 10em;
   padding-top: 3em;
   color: $text-color-weak;
   background: rgb(27, 27, 27);
 }
-.time-container{
+
+.time-container {
   display: flex;
   justify-content: space-around;
   margin:auto;
   width: 60%;
 }
-.time{
+
+.time {
   padding: 2em;
 }
-.end{
+
+.end {
   width: 80%;
   margin: auto;
   padding: 2em;
-  hr{
+  hr {
     border: 1px solid $text-color-weak;
   }
 }

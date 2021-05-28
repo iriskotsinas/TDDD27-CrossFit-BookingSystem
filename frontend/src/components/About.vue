@@ -6,7 +6,7 @@
     
     <div class="image">
       <img
-        src="../assets/cross2.jpeg"
+        src="../assets/crossfit3.jpeg"
         alt=""
       >
     </div>
@@ -20,7 +20,7 @@
     </div>
     <div class="image-flipped">
       <img
-        src="../assets/cross2.jpeg"
+        src="../assets/crossfit2.jpeg"
         alt=""
       >
     </div>
@@ -66,45 +66,51 @@ export default {
 </script>
 
 <style lang= "scss" scoped>
-.title{
+.title {
   font-size: 5rem;
   font-family: $font-header;
   padding-top: 2em;
   height: 2em;
 }
-.cards-container{
+
+.cards-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
 }
-.card{
+
+.card {
   min-height: 30em;
   height: auto;
   background: rgb(54, 54, 54);
   padding: 2em;
 
-  h2{
+  h2 {
     font-family: $font-header;
     font-size: 2.5rem;
   }
-  h3{
+
+  h3 {
     font-size: 3rem;
   }
 }
-.programs{
+
+.programs {
   width: 60%;
   margin: auto;
   margin-bottom: 4em;
 
-  h1{
+  h1 {
     font-size: 3rem;
      font-family: $font-header;
   }
 }
-.line{
+
+.line {
   margin: 2em;
   border: 1px solid $secondary-color;
 }
+
 .text-container {
   margin: auto;
   background: rgb(54, 54, 54);
@@ -114,6 +120,7 @@ export default {
   min-height: 40vh;
   transform: translate(50%, -70%);
 }
+
 .text-container-flipped {
   margin: auto;
   background: rgb(54, 54, 54);
@@ -123,9 +130,10 @@ export default {
   min-height: 40vh;
   transform: translate(-50%, -70%);
 }
+
 .image {
   min-height: 40em;
-  img{
+  img {
     height: auto;
     width: 60vw;
     max-width: 50em;
@@ -133,9 +141,10 @@ export default {
     
   }
 }
+
 .image-flipped {
   min-height: 40em;
-  img{
+  img {
     height: auto;
     width: 60vw;
     max-width: 50em;
@@ -143,10 +152,11 @@ export default {
     
   }
 }
-.text{
+
+.text {
   padding: 0.2em 2em 2em 2em;
 
-  h2{
+  h2 {
     font-family: $font-header;
     font-size: 2.5rem;
   }

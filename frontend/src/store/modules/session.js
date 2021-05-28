@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-
 const state ={
   sessions:[],
   allSessions:[]
 };
+
 const getters = {
   getSessions: state => state.sessions,
   getAllSessions: state => state.allSessions,
@@ -13,6 +13,7 @@ const getters = {
     return state.sessions[index];
   }
 };
+
 const actions = {
   async fetch({commit}, date) {
     try {
@@ -40,6 +41,7 @@ const actions = {
     commit("updateSession", session);
   },
 };
+
 const mutations = {
   saveSessions: (state, response) => (state.sessions = response),
   saveAllSessions: (state, response) => (state.allSessions = response.sessions),
@@ -47,8 +49,8 @@ const mutations = {
     const index = state.sessions.findIndex(item => item._id === session._id);
     state.sessions[index] = session;
   }
-
 };
+
 export default {
   state,
   getters,

@@ -50,6 +50,7 @@ const actions = {
     commit('updateUser', user);
   },
 };
+
 const mutations = {
   setStatus: (state, response) =>
     (state.status = { success: response.status, error: response.error}),
