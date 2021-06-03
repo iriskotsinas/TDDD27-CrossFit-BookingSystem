@@ -440,6 +440,8 @@ button {
 
 .btn-disabled {
   background: rgb(41, 41, 41);
+  color: rgb(110, 110, 110);
   pointer-events: none;
+  border-color: rgb(110, 110, 110);
 }
 </style>
