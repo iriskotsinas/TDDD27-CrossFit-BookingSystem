@@ -143,10 +143,6 @@ export default {
   },
   methods:{
     ...mapActions(['saveUser', 'saveSession']),
-    // onExpand: function() {
-    //   const details = document.getElementById(this.session._id);
-    //   details.style.display = details.style.display === "grid" ? "none" : "grid";
-    // },
     onSignup: async function(id) {
       try {
         const response = await axios.post('http://localhost:5000/signup', {
